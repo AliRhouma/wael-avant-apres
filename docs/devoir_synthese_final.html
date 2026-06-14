@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>WaelDocuments — Devoir de Synthèse N°1 — Sciences Physiques</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  chtml: { fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2', matchFontHeight: true },
+  startup: { typeset: true }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #fff;
+  --fg: #101012; --fg2: #52525b; --fg3: #8a8a93;
+  --blue: #1c9fd4; --blue-dark: #1683b3; --teal: #0fa3b1;
+  --orange: #f29200; --red: #e23b4e; --cream: #fbe9c8;
+  --blue-soft: #f4fafd; --blue-line: #d6ecf7;
+  --mono: 'JetBrains Mono', monospace;
+  --latin: 'Sora', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--latin); color: var(--fg);
+  background: #e4e4e7; padding: 28px 0;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+
+/* ── A4 Fixed page ── */
+.page {
+  width: 210mm; height: 297mm; background: var(--bg);
+  margin: 0 auto 26px; padding: 14mm 16mm 18mm;
+  position: relative; overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,.14);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 50% -8%, rgba(0,0,0,.03), transparent 70%),
+    radial-gradient(rgba(0,0,0,.045) 1px, transparent 1px);
+  background-size: auto, 22px 22px; background-position: center, 0 0;
+}
+.page > * { position: relative; z-index: 1; }
+
+/* Watermark */
+.wm {
+  position: absolute; inset: -25%; z-index: 0; pointer-events: none;
+  display: flex; flex-direction: column; justify-content: space-between;
+  transform: rotate(-30deg);
+}
+.wm span {
+  font-family: var(--mono); font-weight: 700; font-size: 33pt;
+  letter-spacing: .14em; color: var(--blue); opacity: .04;
+  white-space: nowrap; text-align: center;
+}
+
+/* ── Topbar ── */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 9px; border-bottom: 1.5px solid var(--blue-line);
+  margin-bottom: 5mm;
+  font-family: var(--mono); font-size: 8pt;
+  letter-spacing: .16em; color: var(--fg3); text-transform: uppercase;
+}
+.topbar .l { display: flex; align-items: center; gap: 9px; color: var(--blue-dark); font-weight: 700; }
+.topbar .r { color: var(--teal); font-weight: 700; }
+
+/* ── Compact school header (page 1 only) ── */
+.school-box {
+  border: 1.5px solid var(--blue-line);
+  border-radius: 10px; overflow: hidden;
+  margin-bottom: 5mm;
+}
+.sb-grid {
+  display: grid; grid-template-columns: 1fr 2fr 1fr;
+  border-bottom: 1px solid var(--blue-line);
+}
+.sb-col {
+  padding: 8px 13px; border-left: 1px solid var(--blue-line);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.sb-col:first-child { border-left: none; }
+.sb-school-name {
+  font-family: var(--mono); font-size: 10pt; font-weight: 800;
+  color: var(--blue-dark); letter-spacing: .08em; line-height: 1.2;
+}
+.sb-school-city {
+  font-family: var(--mono); font-size: 9pt; font-weight: 600;
+  color: var(--teal); margin-top: 2px; letter-spacing: .1em;
+}
+.sb-exam-name {
+  font-family: var(--latin); font-size: 14pt; font-weight: 800;
+  color: var(--blue-dark); text-align: center; line-height: 1.1;
+}
+.sb-exam-sub {
+  font-family: var(--mono); font-size: 8pt;
+  color: var(--fg2); text-align: center;
+  letter-spacing: .06em; margin-top: 3px;
+}
+.sb-date-row { font-family: var(--mono); font-size: 8.5pt; color: var(--fg2); line-height: 1.8; }
+.sb-date-row b { color: var(--fg); }
+.sb-foot {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  padding: 7px 13px;
+  font-family: var(--mono); font-size: 8.5pt; color: var(--fg2);
+}
+.sb-foot b { color: var(--blue-dark); }
+.sb-profs { flex: 1; }
+/* Seal inside grid (top-right cell already handles it) */
+
+/* ── Exercise header ── */
+.exh { display: flex; align-items: center; gap: 12px; margin: 6mm 0 5mm; }
+.exh .idx {
+  font-family: var(--mono); font-size: 9.5pt; font-weight: 700;
+  color: #fff; background: var(--red);
+  border-radius: 7px; padding: 5px 14px;
+  letter-spacing: .06em; text-transform: uppercase; flex-shrink: 0;
+}
+.exh h2 { font-family: var(--latin); font-size: 14pt; font-weight: 700; color: var(--blue-dark); }
+.exh .pts {
+  margin-left: auto; flex-shrink: 0;
+  font-family: var(--mono); font-size: 9pt; font-weight: 700;
+  color: var(--orange); background: var(--cream);
+  border-radius: 20px; padding: 5px 14px;
+}
+
+/* ── Part header ── */
+.ph {
+  font-family: var(--mono); font-size: 10pt; font-weight: 700;
+  color: var(--blue-dark); margin: 6mm 0 4.5mm;
+  padding-bottom: 4px; border-bottom: 1.5px solid var(--blue-line);
+  letter-spacing: .07em;
+}
+
+/* ── Continuation tag ── */
+.cont-tag {
+  font-family: var(--mono); font-size: 8pt; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--orange);
+  display: flex; align-items: center; gap: 8px;
+  margin: 5mm 0 4mm; padding-bottom: 5px;
+  border-bottom: 1px dashed var(--blue-line);
+}
+.cont-tag::before { content: "↳"; font-size: 11pt; }
+
+/* ── Kicker ── */
+.kicker {
+  font-family: var(--mono); font-size: 7.5pt;
+  letter-spacing: .18em; color: var(--orange);
+  display: block; margin-bottom: 8px;
+}
+
+/* ── Data callout ── */
+.data {
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-line); border-left: 4px solid var(--blue);
+  border-radius: 10px; padding: 12px 17px; margin-bottom: 5mm;
+  font-size: 10.5pt; line-height: 1.62; color: var(--fg2);
+}
+.data b { color: var(--fg); font-weight: 700; }
+.data p + p { margin-top: 8px; }
+
+/* ── Numbered questions ── */
+ol.q { list-style: none; counter-reset: q; }
+ol.q > li {
+  counter-increment: q; position: relative;
+  padding-left: 34px; margin-bottom: 5mm;
+  font-size: 11pt; line-height: 1.65;
+}
+ol.q > li::before {
+  content: counter(q); position: absolute; left: 0; top: 3px;
+  width: 24px; height: 24px; background: var(--blue); color: #fff;
+  border-radius: 50%; font-family: var(--mono); font-size: 9.5pt; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Sub-list a, b, c ── */
+ol.sub {
+  list-style: none; counter-reset: s;
+  margin: 7px 0 3px; padding-left: 5px;
+  border-left: 2.5px solid var(--blue-line);
+}
+ol.sub li {
+  counter-increment: s; position: relative;
+  padding: 5px 0 5px 30px; font-size: 10.8pt; line-height: 1.6;
+}
+ol.sub li::before {
+  content: counter(s, lower-alpha) ".";
+  position: absolute; left: 9px; top: 5px;
+  font-family: var(--mono); font-size: 9.5pt; font-weight: 600; color: var(--teal);
+}
+
+/* ── Equation display ── */
+.eqd {
+  text-align: center; margin: 4.5mm 0;
+  font-size: 12pt; font-weight: 700;
+  color: var(--blue-dark); letter-spacing: .02em;
+}
+
+/* ── Figure card ── */
+.fig-card {
+  border: 1px solid var(--blue-line); border-radius: 11px;
+  padding: 11px 9px 8px; background: #fff;
+  display: flex; flex-direction: column; align-items: center;
+}
+.fig-cap {
+  font-family: var(--mono); font-size: 7.5pt;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 5px;
+}
+
+/* ── CTA banner ── */
+.cta {
+  border: 1.5px solid var(--orange); border-radius: 13px; overflow: hidden;
+  display: flex; margin-top: 6mm; background: #fff;
+}
+.cta .m { flex: 1; padding: 14px 18px; }
+.cta .kk { font-family: var(--mono); font-size: 7.5pt; letter-spacing: .14em; color: var(--orange); margin-bottom: 6px; }
+.cta .t { font-family: var(--latin); font-weight: 800; font-size: 14pt; color: var(--blue-dark); }
+.cta .d { font-size: 10pt; color: var(--fg2); line-height: 1.7; margin-top: 5px; }
+.cta .s {
+  width: 54mm; background: var(--cream); border-left: 1.5px solid #f1d496;
+  padding: 14px; display: flex; flex-direction: column;
+  gap: 9px; justify-content: center; align-items: center;
+}
+.cta .btn {
+  background: var(--orange); color: #fff; font-family: var(--latin);
+  font-weight: 800; font-size: 10.5pt; padding: 9px 17px;
+  border-radius: 10px; text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+}
+.cta .ph2 { font-family: var(--mono); font-weight: 600; font-size: 8.5pt; color: #8a6a16; }
+
+/* ── Footer ── */
+.footer {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 16mm; border-top: 1px solid var(--blue-line);
+  font-family: var(--mono); font-size: 7.5pt;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--fg3);
+}
+.footer .b { display: flex; align-items: center; gap: 7px; color: var(--teal); }
+.footer .pn {
+  background: var(--orange); color: #fff;
+  width: 26px; height: 26px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: 10.5pt;
+}
+
+mjx-container { color: var(--fg) !important; font-weight: 400 !important; font-size: 1.0em !important; }
+
+.toolbar { max-width: 210mm; margin: 0 auto 18px; display: flex; justify-content: flex-end; padding: 0 4px; }
+.toolbar button {
+  font-family: var(--mono); font-weight: 600; font-size: 9pt;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: var(--blue-dark); color: #fff;
+  border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer;
+}
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .toolbar { display: none; }
+  .page { box-shadow: none; margin: 0; page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+}
+@page { size: A4; margin: 0; }
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">↓ Export PDF · A4</button></div>
+
+<!-- ═══════════════════════════ PAGE 1 ═══════════════════════════ -->
+<div class="page">
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <span class="l">
+      <svg width="28" height="17" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+      </svg>
+      WaelDocuments
+    </span>
+    <span class="r">Sciences Physiques · Devoirs de Synthèse N°1</span>
+  </div>
+
+  <!-- Compact school header -->
+  <div class="school-box">
+    <div class="sb-grid">
+      <div class="sb-col">
+        <div class="sb-school-name">LYCÉE PILOT</div>
+        <div class="sb-school-city">SFAX</div>
+      </div>
+      <div class="sb-col" style="text-align:center;">
+        <div class="sb-exam-name">Devoir de Sythese</div>
+        <div class="sb-exam-sub">Sciences Physiques — Chimie (7 points)</div>
+      </div>
+      <div class="sb-col">
+        <div class="sb-date-row">Année : <b>2016 – 2017</b></div>
+        <div class="sb-date-row">Semestre : <b>1<sup>er</sup></b></div>
+      </div>
+    </div>
+    <div class="sb-foot">
+      <span><b>Durée :</b> 3h</span>
+      <span><b>Date :</b> 29 / 12 / 2016</span>
+      <span><b>Classe :</b> 4<sup>ème</sup> Math</span>
+      <span class="sb-profs"><b>Professeurs :</b> M<sup>r</sup> Abdelmoula – Ammar – Boussarsar – Cheffi – Kassis</span>
+    </div>
+  </div>
+
+  <!-- ═══ EXERCICE 1 ═══ -->
+  <div class="exh">
+    <span class="idx">Ex 1</span>
+    <h2>Hydrolyse de l'éthanoate de méthyle</h2>
+    <span class="pts">3,75 PTS</span>
+  </div>
+
+  <div style="display:flex; gap:12px; margin-bottom:5mm;">
+    <div class="data" style="flex:1; margin-bottom:0;">
+      <span class="kicker">// Données</span>
+      <p><b>M(C) = 12 g.mol⁻¹ ; M(H) = 1 g.mol⁻¹ ; M(O) = 16 g.mol⁻¹ ;</b>
+         La masse volumique de l'éthanoate de méthyle est <b>ρ = 0,925 g.cm⁻³</b>.</p>
+      <p>On réalise un mélange <b>(M)</b> dans un bécher placé dans de la glace, formé de
+         <i>n</i><sub>1</sub> mol d'éthanoate de méthyle CH<sub>3</sub>COOCH<sub>3</sub>
+         et <i>n</i><sub>2</sub> mol d'eau avec <i>n</i><sub>2</sub> = 2,5&thinsp;<i>n</i><sub>1</sub>
+         et quelques gouttes d'acide sulfurique concentré.</p>
+      <p>On divise le mélange <b>(M)</b> en 10 volumes égaux, dans des tubes à essais.
+         À <i>t</i><sub>0</sub> = 0, on place tous les tubes dans un bain-marie maintenu à une
+         température constante. On suit l'évolution du système en dosant l'acide formé dans les
+         différents tubes dégagés du bain-marie à des instants convenablement choisis par une
+         solution aqueuse d'hydroxyde de sodium (soude) de concentration molaire
+         <b>C<sub>B</sub> = 2,5 mol.L⁻¹</b>.</p>
+      <p>Les résultats ont permis de tracer la courbe représentant l'évolution au cours du temps
+         de la quantité de matière d'ester dans le mélange <i>(voir figure 1)</i>.</p>
+    </div>
+    <!-- Figure 1 -->
+    <div class="fig-card" style="flex:0 0 auto; min-width:162px; justify-content:center;">
+      <div class="fig-cap">Figure 1</div>
+      <svg viewBox="0 0 145 115" fill="none" style="width:158px; height:126px;">
+        <line x1="28" y1="6" x2="28" y2="94" stroke="var(--blue-dark)" stroke-width="1.6"/>
+        <line x1="28" y1="94" x2="136" y2="94" stroke="var(--blue-dark)" stroke-width="1.6"/>
+        <polygon points="28,5 24.5,12 31.5,12" fill="var(--blue-dark)"/>
+        <polygon points="137,94 130,90.5 130,97.5" fill="var(--blue-dark)"/>
+        <text x="14" y="8" font-family="Sora,sans-serif" font-size="8" fill="var(--blue-dark)" text-anchor="middle" font-style="italic">n(ester)</text>
+        <line x1="23" y1="17" x2="31" y2="17" stroke="var(--blue-dark)" stroke-width="1.3"/>
+        <text x="20" y="21" font-size="9" fill="var(--fg2)" text-anchor="end" font-family="Sora,sans-serif" font-style="italic">n₁</text>
+        <line x1="23" y1="67" x2="31" y2="67" stroke="var(--blue-dark)" stroke-width="1.3"/>
+        <text x="20" y="71" font-size="8" fill="var(--fg2)" text-anchor="end" font-family="Sora,sans-serif" font-style="italic">n₁/2</text>
+        <line x1="28" y1="67" x2="128" y2="67" stroke="var(--fg3)" stroke-width="0.9" stroke-dasharray="4,3"/>
+        <text x="28" y="107" font-size="8" fill="var(--fg2)" text-anchor="middle" font-family="JetBrains Mono,monospace">0</text>
+        <line x1="44" y1="91" x2="44" y2="97" stroke="var(--blue-dark)" stroke-width="1.3"/>
+        <text x="44" y="107" font-size="8" fill="var(--fg2)" text-anchor="middle" font-family="JetBrains Mono,monospace">10</text>
+        <line x1="128" y1="91" x2="128" y2="97" stroke="var(--blue-dark)" stroke-width="1.3"/>
+        <text x="128" y="107" font-size="8" fill="var(--fg2)" text-anchor="middle" font-family="JetBrains Mono,monospace">70</text>
+        <text x="126" y="92" font-size="7" fill="var(--blue-dark)" font-family="JetBrains Mono,monospace" font-style="italic">t(min)</text>
+        <path d="M 28,17 C 38,18 48,42 70,57 C 92,67 112,68 128,68" stroke="var(--teal)" fill="none" stroke-width="2.2"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Q1 & Q2 -->
+  <ol class="q">
+    <li>
+      <ol class="sub">
+        <li>En utilisant les formules semi-développées, écrire l'équation de la réaction d'hydrolyse qui se produit.</li>
+        <li>Pour quelle raison le bécher est-il placé dans de la glace ?</li>
+        <li>À partir de la courbe, préciser en le justifiant, les caractères de la réaction mis en évidence.</li>
+      </ol>
+    </li>
+    <li>
+      <ol class="sub">
+        <li>Dresser le tableau descriptif d'évolution du système dans le mélange <b>(M)</b>.</li>
+        <li>Calculer le taux d'avancement final <i>τ<sub>f</sub></i> de la réaction.</li>
+        <li>Vérifier que <b>K = 0,25</b>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <div class="footer">
+    <span class="b">
+      <svg width="20" height="12" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+      </svg>
+      waeldocuments.com &nbsp;·&nbsp; +216 50 40 40 42 / +216 50 45 40 40
+    </span>
+    <span class="pn">80</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ PAGE 2 ═══════════════════════════ -->
+<div class="page">
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <div class="topbar">
+    <span class="l">
+      <svg width="28" height="17" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+      </svg>
+      WaelDocuments
+    </span>
+    <span class="r">Sciences Physiques · Devoirs de Synthèse N°1</span>
+  </div>
+
+  <!-- Q3 — suite Ex1 -->
+  <div class="cont-tag">Suite — Exercice 1</div>
+
+  <ol class="q" style="counter-reset: q 2;">
+    <li>Le contenu d'un tube à essai dosé à <i>t</i><sub>1</sub> = 70 min, en présence de quelques
+      gouttes de phénolphtaléine prend la coloration rose lorsque le volume de la solution de soude
+      ajouté est <b>V<sub>B</sub> = 20 mL</b>.
+      <ol class="sub">
+        <li>Préciser le rôle du phénolphtaléine.</li>
+        <li>Montrer que <i>n</i><sub>1</sub> = 1 mol.</li>
+        <li>Déduire la composition du mélange <b>(M)</b>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <!-- ═══ EXERCICE 2 ═══ -->
+  <div class="exh">
+    <span class="idx">Ex 2</span>
+    <h2>Complexes du cobalt &amp; Synthèse de l'ammoniac</h2>
+    <span class="pts">3,25 PTS</span>
+  </div>
+
+  <div class="ph">I/ Complexes du cobalt</div>
+
+  <div class="data">
+    <p>En solution aqueuse les ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>
+       réagissent avec l'ammoniac NH<sub>3</sub> pour donner les ions
+       Co(NH<sub>3</sub>)<sub>6</sub><sup>2+</sup> selon l'équation :</p>
+    <div class="eqd">
+      Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>
+      &nbsp;+&nbsp; NH<sub>3</sub>
+      &nbsp;⇌&nbsp;
+      Co(NH<sub>3</sub>)<sub>6</sub><sup>2+</sup>
+    </div>
+    <p>La constante d'équilibre relative à cette réaction est <b>K = 10</b> à une température T.</p>
+  </div>
+
+  <ol class="q">
+    <li>À <i>t</i> = 0 et à la température T, on mélange : <b>4.10⁻² mol</b> d'ions
+      Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup> avec <b>4.10⁻² mol</b> de NH<sub>3</sub>.
+      On obtient une solution de volume <b>V = 200 mL</b>.
+      Donner l'expression de la fonction des concentrations en fonction de l'avancement <i>x</i>.
+    </li>
+    <li>Sachant qu'à <i>t</i> = <i>t</i><sub>1</sub> le nombre de moles de NH<sub>3</sub>
+      est égal 3 fois le nombre de moles d'ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>.
+      <ol class="sub">
+        <li>Le système est-il en état d'équilibre chimique à l'instant de date <i>t</i><sub>1</sub> ?</li>
+        <li>Déterminer la quantité de matière de l'ammoniac à l'équilibre chimique.</li>
+      </ol>
+    </li>
+    <li>Au mélange obtenu à l'équilibre on ajoute, sans variation de volume à la température T,
+      <b>1,5.10⁻³ mol</b> d'ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>.
+      <ol class="sub">
+        <li>Comment varie le nombre de moles d'ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup> dans ce mélange ? Justifier.</li>
+        <li>Déterminer la nouvelle valeur du taux d'avancement final de la réaction.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <div class="footer">
+    <span class="b">
+      <svg width="20" height="12" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+      </svg>
+      waeldocuments.com &nbsp;·&nbsp; +216 50 40 40 42 / +216 50 45 40 40
+    </span>
+    <span class="pn">81</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ PAGE 3 ═══════════════════════════ -->
+<div class="page">
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <div class="topbar">
+    <span class="l">
+      <svg width="28" height="17" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+      </svg>
+      WaelDocuments
+    </span>
+    <span class="r">Sciences Physiques · Devoirs de Synthèse N°1</span>
+  </div>
+
+  <!-- Partie II -->
+  <div class="ph" style="margin-top:4mm;">II/ Synthèse de l'ammoniac</div>
+
+  <div class="data">
+    <p>La quantité d'ammoniac initialement introduite provient de la réaction de synthèse de
+       l'ammoniac qui est symbolisée par :</p>
+    <div class="eqd">
+      N<sub>2(g)</sub>
+      &nbsp;+&nbsp; 3H<sub>2(g)</sub>
+      &nbsp;⇌&nbsp;
+      2NH<sub>3(g)</sub>
+      &nbsp;+&nbsp; chaleur
+    </div>
+  </div>
+
+  <ol class="q">
+    <li>L'ammoniac est très soluble dans l'eau mais le pourcentage moléculaire dans la solution
+      ne peut pas être de 80%. Calculer la quantité d'ammoniac que doit produire la réaction
+      de synthèse.
+    </li>
+    <li>Pour réaliser la synthèse de l'ammoniac, on part d'un mélange contenant
+      <b>0,1 mol</b> de N<sub>2</sub> et <b>0,18 mol</b> de H<sub>2</sub>, sachant que le taux
+      d'avancement final de la réaction est <b>τ<sub>1</sub> = 0,5</b>. Montrer que la quantité
+      d'ammoniac formée à la fin de la réaction n'est pas celle qui doit être produite.
+    </li>
+  </ol>
+
+
+  <!-- Espace de travail -->
+  <div style="margin-top:7mm; border-top:1px dashed var(--blue-line); padding-top:5mm;">
+    <div style="font-family:var(--mono);font-size:7.5pt;letter-spacing:.2em;
+                text-transform:uppercase;color:var(--fg3);margin-bottom:5mm;">
+      // Espace de travail
+    </div>
+    <div style="display:flex;flex-direction:column;gap:11mm;">
+      <div style="border-bottom:1px solid var(--blue-line);"></div>
+      <div style="border-bottom:1px solid var(--blue-line);"></div>
+      <div style="border-bottom:1px solid var(--blue-line);"></div>
+      <div style="border-bottom:1px solid var(--blue-line);"></div>
+      <div style="border-bottom:1px solid var(--blue-line);"></div>
+      <div style="border-bottom:1px solid var(--blue-line);"></div>
+      <div style="border-bottom:1px solid var(--blue-line);"></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="m">
+      <div class="kk">// متوفّر في نسخة ورقية · Disponible en version imprimée</div>
+      <div class="t">Annales du Bac · 2009 → 2025</div>
+      <div class="d">Sujets et corrections officiels du Ministère dans toutes les matières.
+        Commandez votre exemplaire via notre page Facebook.</div>
+    </div>
+    <div class="s">
+      <a class="btn" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+          <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5H17V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H8v3h2.5v8h3z"/>
+        </svg>
+        Commander
+      </a>
+      <div class="ph2">+216 50 40 40 42</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="b">
+      <svg width="20" height="12" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+      </svg>
+      waeldocuments.com &nbsp;·&nbsp; +216 50 40 40 42 / +216 50 45 40 40
+    </span>
+    <span class="pn">82</span>
+  </div>
+</div>
+</body>
+</html>
