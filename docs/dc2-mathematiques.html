@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devoir de Contrôle N°2 — Mathématiques</title>
+
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    chtml: { fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2', matchFontHeight: true },
+    startup: { typeset: true }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap');
+  :root{
+    --bg:#fff;--panel:#fafafa;--hair:#e6e6e9;--hair2:#d6d6db;
+    --fg:#101012;--fg2:#52525b;--fg3:#8a8a93;
+    /* original educational palette (used on the colored last page) */
+    --blue:#1c9fd4;--blue-dark:#1683b3;--teal:#0fa3b1;--orange:#f29200;--red:#e23b4e;--cream:#fbe9c8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Sora',sans-serif;color:var(--fg);background:#e4e4e7;padding:28px 0;
+       -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .page{width:210mm;height:297mm;background:var(--bg);margin:0 auto 26px;
+        padding:15mm 16mm 18mm;position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.16);
+        background-image:
+          radial-gradient(ellipse 60% 40% at 50% -8%, rgba(0,0,0,.035), transparent 70%),
+          radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px);
+        background-size:auto, 22px 22px;background-position:center, 0 0;}
+  .page > *{position:relative;z-index:1;}
+
+  /* ---- subtle diagonal brand watermark ---- */
+  .wm{position:absolute;inset:-25%;z-index:0 !important;pointer-events:none;
+      display:flex;flex-direction:column;justify-content:space-between;
+      transform:rotate(-30deg);}
+  .wm span{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:33pt;
+      letter-spacing:.14em;color:#000;opacity:.04;white-space:nowrap;text-align:center;}
+
+  /* ---- brand loops mark ---- */
+  .loops{width:26px;height:16px;color:var(--fg);flex:0 0 auto;}
+
+  .topbar{display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:8pt;letter-spacing:.18em;color:var(--fg2);
+    text-transform:uppercase;padding-bottom:8px;border-bottom:1px solid var(--hair);}
+  .topbar .l{display:flex;align-items:center;gap:9px;color:var(--fg);}
+  .topbar .r{color:var(--fg3);}
+
+  .hero{padding:7mm 0 4mm;border-bottom:1px solid var(--hair);margin-bottom:4mm;position:relative;}
+  .hero .kick{font-family:'JetBrains Mono',monospace;font-size:8.5pt;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--fg3);margin-bottom:7px;}
+  .hero h1{font-size:25pt;font-weight:800;letter-spacing:-.02em;line-height:1.02;}
+  .hero .sub{font-family:'JetBrains Mono',monospace;font-size:8.5pt;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--fg2);margin-top:9px;}
+  /* ---- seal ---- */
+  .seal{position:absolute;top:6mm;right:0;width:74px;height:74px;color:var(--fg3);opacity:.8;}
+
+  .meta{display:flex;border:1px solid var(--hair);border-radius:8px;overflow:hidden;margin-bottom:5mm;}
+  .meta > div{flex:1;padding:7px 13px;border-right:1px solid var(--hair);}
+  .meta > div:last-child{border-right:none;}
+  .meta .k{font-family:'JetBrains Mono',monospace;font-size:7pt;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3);}
+  .meta .v{font-size:10pt;font-weight:600;margin-top:2px;}
+  .exh{display:flex;align-items:center;gap:12px;margin:5mm 0 2.5mm;}
+  .exh .idx{font-family:'JetBrains Mono',monospace;font-size:9pt;font-weight:600;color:var(--fg);
+    border:1px solid var(--hair2);border-radius:5px;padding:4px 10px;letter-spacing:.08em;text-transform:uppercase;}
+  .exh h2{font-size:13.5pt;font-weight:700;letter-spacing:-.01em;}
+  .exh .pts{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:8.5pt;font-weight:600;
+    letter-spacing:.1em;color:var(--fg2);border:1px solid var(--hair2);border-radius:20px;padding:4px 13px;}
+  .data{border:1px solid var(--hair2);background:var(--panel);border-radius:8px;
+    padding:10px 15px;margin-bottom:4mm;font-size:10pt;line-height:1.6;color:var(--fg2);}
+  .data .h{font-family:'JetBrains Mono',monospace;font-size:7.5pt;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--fg3);display:block;margin-bottom:6px;}
+  .data b{color:var(--fg);font-weight:600;}
+  ol.q{list-style:none;counter-reset:q;}
+  ol.q > li{counter-increment:q;position:relative;padding:3px 0 3px 30px;margin-bottom:2mm;font-size:10.3pt;line-height:1.55;}
+  ol.q > li::before{content:counter(q);position:absolute;left:0;top:2px;width:21px;height:21px;
+    border:1px solid var(--hair2);border-radius:5px;font-family:'JetBrains Mono',monospace;
+    font-size:9pt;font-weight:600;color:var(--fg);display:flex;align-items:center;justify-content:center;background:var(--bg);}
+  ol.q > li > .stem{font-weight:600;}
+  ol.sub{list-style:none;counter-reset:s;margin:4px 0 0;padding-left:2px;border-left:1px solid var(--hair);}
+  ol.sub li{counter-increment:s;position:relative;padding:2.5px 0 2.5px 26px;font-size:10.1pt;line-height:1.5;color:var(--fg);}
+  ol.sub li::before{content:counter(s,lower-alpha)".";position:absolute;left:10px;top:2.5px;
+    font-family:'JetBrains Mono',monospace;font-size:9pt;font-weight:600;color:var(--fg3);}
+  .midnote{font-size:9.8pt;line-height:1.5;margin:2px 0 3px;color:var(--fg2);}
+  .footer{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;
+    padding:7px 16mm;border-top:1px solid var(--hair);background:var(--bg);
+    font-family:'JetBrains Mono',monospace;font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);}
+  .footer .brand{display:flex;align-items:center;gap:7px;color:var(--fg2);}
+  .footer .brand .loops{width:18px;height:11px;color:var(--fg2);}
+  .footer .pn{border:1px solid var(--hair2);color:var(--fg);padding:3px 9px;border-radius:4px;}
+  mjx-container{color:var(--fg) !important;font-weight:400 !important;font-size:1.0em !important;}
+
+  /* ---- CTA banner ---- */
+  .cta{position:absolute;left:16mm;right:16mm;bottom:20mm;z-index:1;
+    border:1px solid var(--fg);border-radius:14px;background:var(--bg);overflow:hidden;
+    display:flex;align-items:stretch;}
+  .cta .main{flex:1;padding:15px 18px;}
+  .cta .kick2{font-family:'JetBrains Mono',monospace;font-size:7.5pt;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--fg3);margin-bottom:6px;}
+  .cta .t{font-size:14pt;font-weight:800;letter-spacing:-.01em;line-height:1.1;}
+  .cta .d{font-size:9.3pt;color:var(--fg2);line-height:1.5;margin-top:5px;max-width:105mm;}
+  .cta .ar{font-family:'Tajawal',sans-serif;font-size:10pt;color:var(--fg2);line-height:1.7;margin-top:7px;direction:rtl;max-width:115mm;}
+  .cta .side{width:62mm;border-left:1px solid var(--hair);padding:15px 16px;
+    display:flex;flex-direction:column;justify-content:center;gap:11px;background:var(--panel);}
+  .cta .btn{display:inline-flex;align-items:center;gap:8px;background:var(--fg);color:#fff;
+    font-family:'JetBrains Mono',monospace;font-size:8.5pt;font-weight:600;letter-spacing:.04em;
+    padding:9px 13px;border-radius:8px;text-decoration:none;justify-content:center;}
+  .cta .btn svg{width:14px;height:14px;}
+  .socials{display:flex;align-items:center;gap:10px;color:var(--fg2);
+    font-family:'JetBrains Mono',monospace;font-size:8pt;letter-spacing:.05em;}
+  .socials .ic{display:inline-flex;gap:7px;color:var(--fg);}
+  .socials svg{width:15px;height:15px;}
+  .toolbar{max-width:210mm;margin:0 auto 20px;display:flex;justify-content:flex-end;padding:0 4px;}
+  .toolbar button{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:9pt;letter-spacing:.1em;
+    text-transform:uppercase;background:var(--fg);color:#fff;border:none;padding:11px 22px;border-radius:6px;cursor:pointer;}
+  @media print{
+    body{background:#fff;padding:0;}
+    .toolbar{display:none;}
+    .page{box-shadow:none;margin:0;page-break-after:always;}
+    .page:last-child{page-break-after:auto;}
+  }
+  @page{size:A4;margin:0;}
+
+  /* ===== COLORED LAST PAGE (original educational theme) ===== */
+  .page.colored .topbar .l{color:var(--blue-dark);}
+  .page.colored .topbar{border-bottom-color:#d6ecf7;}
+  .page.colored .loops{color:var(--orange);}
+  .page.colored .wm span{color:var(--blue);opacity:.05;}
+
+  .page.colored .hero{border-bottom-color:#d6ecf7;}
+  .page.colored .hero .kick{color:var(--orange);}
+  .page.colored .hero h1{color:var(--blue-dark);}
+  .page.colored .hero .sub{color:var(--teal);}
+  .page.colored .seal{color:var(--blue);opacity:.85;}
+
+  .page.colored .meta{border-color:#d6ecf7;}
+  .page.colored .meta > div{border-right-color:#d6ecf7;}
+  .page.colored .meta .k{color:var(--teal);}
+
+  .page.colored .exh .idx{background:var(--red);color:#fff;border:none;}
+  .page.colored .exh h2{color:var(--blue-dark);}
+  .page.colored .exh .pts{background:var(--cream);color:var(--orange);border:none;}
+
+  .page.colored .data{background:#f4fafd;border:1px solid #d6ecf7;border-left:4px solid var(--blue);}
+  .page.colored .data .h{color:var(--orange);}
+
+  .page.colored ol.q > li::before{background:var(--blue);color:#fff;border:none;border-radius:50%;}
+  .page.colored ol.sub{border-left-color:#d6ecf7;}
+  .page.colored ol.sub li::before{color:var(--teal);}
+  .page.colored .footer{border-top-color:#d6ecf7;}
+  .page.colored .footer .brand{color:var(--teal);}
+  .page.colored .footer .brand .loops{color:var(--orange);}
+  .page.colored .footer .pn{background:var(--orange);color:#fff;border:none;}
+
+  .page.colored .cta{border:1.5px solid var(--orange);}
+  .page.colored .cta .kick2{color:var(--orange);}
+  .page.colored .cta .t{color:var(--blue-dark);}
+  .page.colored .cta .d{color:#5b6470;}
+  .page.colored .cta .ar{color:#6b5524;}
+  .page.colored .cta .side{background:var(--cream);border-left-color:#f1d496;}
+  .page.colored .cta .btn{background:var(--orange);color:#fff;}
+  .page.colored .cta .socials{color:#7a6433;}
+  .page.colored .cta .socials .ic{color:var(--blue-dark);}
+</style>
+</head>
+<body>
+
+<div class="toolbar"><button onclick="window.print()">↓ Export PDF · A4</button></div>
+
+<!-- ===== PAGE 1 ===== -->
+<div class="page colored">
+  <div class="wm"><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span></div>
+
+  <div class="topbar">
+    <span class="l">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      WaelDocuments
+    </span>
+    <span class="r">Lycée Pilote de Sfax</span>
+  </div>
+
+  <div class="hero">
+    <svg class="seal" viewBox="0 0 100 100">
+      <defs><path id="ring" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs>
+      <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="50" cy="50" r="31" fill="none" stroke="currentColor" stroke-width="0.8"/>
+      <text font-family="'JetBrains Mono',monospace" font-size="7.3" letter-spacing="1.6" fill="currentColor">
+        <textPath href="#ring" startOffset="2%">WAELDOCUMENTS.COM · CONTENU EXCLUSIF ·</textPath>
+      </text>
+      <circle cx="43" cy="51" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="57" cy="51" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    </svg>
+    <div class="kick">Épreuve · 4ᵉ Math · 3 heures</div>
+    <h1>Devoir de Contrôle N°2</h1>
+    <div class="sub">Mathématiques — Similitudes · Nombres complexes</div>
+  </div>
+
+  <div class="meta">
+    <div><div class="k">Date</div><div class="v">23 / 01 / 2018</div></div>
+    <div><div class="k">Classe</div><div class="v">4ᵉ Math</div></div>
+    <div><div class="k">Durée</div><div class="v">3 heures</div></div>
+    <div><div class="k">Barème</div><div class="v">9 points</div></div>
+  </div>
+
+  <div class="exh"><span class="idx">Ex 1</span><h2>Géométrie — Similitudes</h2><span class="pts">05 PTS</span></div>
+  <div class="data">
+    <span class="h">// Données — Annexe 1</span>
+    Le plan est orienté dans le sens direct. \(ABCD\) est un parallélogramme de centre \(O\) tel que
+    \(\left(\overrightarrow{AB},\overrightarrow{AC}\right)=\dfrac{\pi}{2}\,[2\pi]\) et
+    \(\left(\overrightarrow{BC},\overrightarrow{BA}\right)=\dfrac{\pi}{3}\,[2\pi]\).
+    Soit \(H\) le projeté orthogonal de \(A\) sur \((BC)\), \(I\) le milieu de \([BC]\) et \(K\) le milieu de \([AH]\).
+    On désigne par \(g\) la similitude indirecte qui transforme \(B\) en \(D\) et \(H\) en \(C\).
+  </div>
+  <ol class="q">
+    <li><ol class="sub">
+      <li>Montrer que \(g\big((AH)\big)=(AC)\).</li>
+      <li>Déterminer le rapport de \(g\).</li>
+    </ol></li>
+    <li>
+      <span class="stem">Soit \(E\) le symétrique de \(D\) par rapport à \(C\).</span>
+      <div class="midnote">On désigne par \(f\) la similitude directe qui transforme \(H\) en \(C\) et \(B\) en \(E\).</div>
+      <ol class="sub">
+        <li>Déterminer le rapport et l'angle de \(f\).</li>
+        <li>Montrer que \(A\) est le centre de \(f\).</li>
+        <li>Déterminer \(f\circ g^{-1}(C)\) et \(f\circ g^{-1}(D)\).</li>
+        <li>En déduire la nature et les éléments caractéristiques de \(f\circ g^{-1}\).</li>
+        <li>Montrer alors que \(A\) est le centre de \(g\).</li>
+      </ol>
+    </li>
+    <li><span class="stem">Montrer que la droite \((AI)\) est l'axe de \(g\).</span></li>
+    <li><span class="stem">Déterminer la nature et les éléments caractéristiques de \(g\).</span></li>
+  </ol>
+
+  <div class="exh"><span class="idx">Ex 2</span><h2>Nombres complexes</h2><span class="pts">04 PTS</span></div>
+  <div class="data">
+    <span class="h">// Données — Annexe 2</span>
+    Le plan est muni d'un repère orthonormé direct \(\left(O,\vec{u},\vec{v}\right)\).
+    \(\mathcal{C}\) est le cercle de centre \(O\) et de rayon \(2\). \(A\) est le point d'affixe \(2\).
+    \(D\) est un point de \(\mathcal{C}\) tel que \(\left(\vec{u},\overrightarrow{OD}\right)=\theta\,[2\pi]\),
+    \(\theta\in\,]{-}\pi,\pi]\). On pose <span style="white-space:nowrap">\(\alpha = 1 + i\sqrt{3}\).</span>
+  </div>
+  <ol class="q">
+    <li><span class="stem">Représenter dans l'annexe les points \(B\) et \(C\) d'affixes respectives \(\alpha\) et \(\bar{\alpha}\).</span></li>
+    <li><span class="stem">Montrer que \(\alpha^{2}-4\alpha = 2\bar{\alpha}-8\).</span></li>
+  </ol>
+
+  <div class="footer">
+    <span class="brand">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      waeldocuments.com · +216 50 40 40 42
+    </span>
+    <span class="pn">01</span>
+  </div>
+</div>
+
+<!-- ===== PAGE 2 (Ex 2 suite, no repeated header) ===== -->
+<div class="page colored">
+  <div class="wm"><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span></div>
+
+  <div class="topbar">
+    <span class="l">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      WaelDocuments
+    </span>
+    <span class="r">Lycée Pilote de Sfax</span>
+  </div>
+
+  <ol class="q" style="counter-reset:q 2; margin-top:6mm;">
+    <li>
+      <span class="stem">On désigne par \(E\) l'image de \(D\) par la rotation de centre \(O\) et d'angle \(\dfrac{\pi}{3}\),
+      et par \(F\) et \(G\) les milieux respectifs des segments \([BD]\) et \([CE]\).</span>
+      <ol class="sub">
+        <li>Construire le triangle \(AFG\).</li>
+        <li>Montrer que le point \(E\) a pour affixe \(Z_E = \alpha\,e^{i\theta}\).</li>
+        <li>Justifier que le point \(F\) a pour affixe \(Z_F = \dfrac{\alpha}{2}+e^{i\theta}\).</li>
+        <li>Justifier que le point \(G\) a pour affixe \(Z_G = \dfrac{\alpha\,e^{i\theta}+\bar{\alpha}}{2}\).</li>
+        <li>Montrer que \(\dfrac{Z_G-2}{Z_F-2}=\dfrac{\alpha}{2}\).</li>
+        <li>En déduire que le triangle \(AFG\) est équilatéral.</li>
+        <li>Montrer que \(AF^{2}=4-2\sqrt{3}\,\cos\!\left(\theta+\dfrac{\pi}{6}\right)\).</li>
+        <li>Déterminer la valeur de \(\theta\) pour laquelle la longueur d'un côté du triangle \(AFG\) est minimale.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <div class="cta">
+    <div class="main">
+      <div class="kick2">// Disponible en version papier</div>
+      <div class="t">Annales du Bac · 2009 → 2025</div>
+      <div class="d">Sujets &amp; corrigés officiels du Ministère, dans toutes les matières — à petits prix. Commande sur notre page Facebook.</div>
+      <div class="ar">يمكنكم شراء كتب الامتحانات السابقة للبكالوريا من 2009 إلى 2025 بالإصلاح الرسمي للوزارة في جميع المواد.</div>
+    </div>
+    <div class="side">
+      <a class="btn" href="https://facebook.com/WaelDocuments">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5H17V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H8v3h2.5v8h3z"/></svg>
+        Commander
+      </a>
+      <div class="socials">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5H17V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H8v3h2.5v8h3z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 3c.3 2.1 1.6 3.7 3.7 4v2.4c-1.3 0-2.6-.4-3.7-1.1v5.9c0 3-2.4 5.3-5.3 5.3S3.4 17.2 3.4 14.3 5.8 9 8.7 9c.3 0 .6 0 .9.1v2.5c-.3-.1-.6-.2-.9-.2-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7V3H14z"/></svg>
+        </span>
+        @WaelDocuments
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="brand">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      waeldocuments.com · +216 50 45 40 40
+    </span>
+    <span class="pn">02</span>
+  </div>
+</div>
+
+</body>
+</html>

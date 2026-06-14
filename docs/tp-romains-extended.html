@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaelDocuments — TP N°1 · Nombres romains → Décimal</title>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    chtml: { fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2', matchFontHeight: true },
+    startup: { typeset: true }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+/* =====================================================================
+   WAEL DESIGN SYSTEM — canonical theme
+   Copy this <style> inline into each standalone document.
+   - Direction: set <html dir="rtl"> for Arabic, dir="ltr" for FR/EN.
+   - Finish:    add class "colored" to .page for the colored finish.
+                omit it (and the .colored overrides won't apply) for
+                the MONOCHROME (black & white) finish.
+   - Logical properties (border-inline-start, inset-inline-start, etc.)
+     are used so the layout mirrors correctly in RTL and LTR.
+   ===================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  /* neutrals (monochrome finish + shared) */
+  --bg:#fff; --panel:#fafafa; --hair:#e6e6e9; --hair2:#d6d6db;
+  --fg:#101012; --fg2:#52525b; --fg3:#8a8a93;
+  /* colored educational palette */
+  --blue:#1c9fd4; --blue-dark:#1683b3; --teal:#0fa3b1;
+  --orange:#f29200; --red:#e23b4e; --cream:#fbe9c8;
+  --blue-soft:#f4fafd; --blue-line:#d6ecf7;
+  /* fonts */
+  --mono:'JetBrains Mono',monospace;
+  --latin:'Sora',sans-serif;          /* FR/EN headings + body */
+  --ar:'Cairo',sans-serif;            /* Arabic headings */
+  --arb:'Tajawal',sans-serif;         /* Arabic body */
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--latin);color:var(--fg);background:#e4e4e7;padding:28px 0;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+html[dir="rtl"] body{font-family:var(--arb);}
+
+/* ---- fixed A4 page (identical on screen + print => WYSIWYG) ---- */
+.page{width:210mm;height:297mm;background:var(--bg);margin:0 auto 26px;
+      padding:15mm 16mm 18mm;position:relative;overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.16);
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% -8%, rgba(0,0,0,.035), transparent 70%),
+        radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px);
+      background-size:auto, 22px 22px; background-position:center, 0 0;}
+.page > *{position:relative;z-index:1;}
+
+/* ---- faint diagonal brand watermark ---- */
+.wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;
+    flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+.wm span{font-family:var(--mono);font-weight:700;font-size:33pt;letter-spacing:.14em;
+    color:#000;opacity:.04;white-space:nowrap;text-align:center;}
+.page.colored .wm span{color:var(--blue);opacity:.05;}
+
+/* ---- interlocking-loops brand mark ---- */
+.loops{width:26px;height:16px;color:var(--fg);flex:0 0 auto;}
+.page.colored .loops{color:var(--orange);}
+
+/* ---- top bar ---- */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;
+    border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:8pt;
+    letter-spacing:.16em;color:var(--fg3);text-transform:uppercase;}
+.topbar .l{display:flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;}
+.topbar .r{color:var(--fg3);}
+html[dir="rtl"] .topbar{text-transform:none;}
+html[dir="rtl"] .topbar .r{font-family:var(--ar);font-weight:700;color:var(--fg2);font-size:9.5pt;letter-spacing:0;}
+.page.colored .topbar{border-bottom-color:var(--blue-line);}
+.page.colored .topbar .l{color:var(--blue-dark);}
+.page.colored .topbar .r{color:var(--teal);}
+
+/* ---- hero ---- */
+.hero{padding:7mm 0 4mm;border-bottom:1px solid var(--hair);margin-bottom:4mm;position:relative;}
+.hero .kick{font-family:var(--mono);font-size:8.5pt;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--fg3);margin-bottom:7px;}
+.hero h1{font-family:var(--latin);font-size:27pt;font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--fg);}
+.hero .sub{font-family:var(--mono);font-size:9pt;letter-spacing:.12em;text-transform:uppercase;color:var(--fg2);margin-top:9px;}
+html[dir="rtl"] .hero .kick{font-family:var(--ar);letter-spacing:.12em;text-transform:none;font-weight:700;}
+html[dir="rtl"] .hero h1{font-family:var(--ar);font-weight:900;line-height:1.2;}
+html[dir="rtl"] .hero .sub{font-family:var(--ar);font-weight:600;text-transform:none;letter-spacing:0;}
+.page.colored .hero{border-bottom-color:var(--blue-line);}
+.page.colored .hero .kick{color:var(--orange);}
+.page.colored .hero h1{color:var(--blue-dark);}
+.page.colored .hero .sub{color:var(--teal);}
+
+/* ---- circular seal (page 1, optional) ---- */
+.seal{position:absolute;top:5mm;width:72px;height:72px;color:var(--fg3);opacity:.82;}
+html[dir="ltr"] .seal{right:0;} html[dir="rtl"] .seal{left:0;}
+.page.colored .seal{color:var(--blue);}
+
+/* ---- meta key/value strip ---- */
+.meta{display:flex;border:1px solid var(--hair);border-radius:8px;overflow:hidden;margin-bottom:5mm;}
+.meta > div{flex:1;padding:7px 13px;border-inline-start:1px solid var(--hair);}
+.meta > div:first-child{border-inline-start:none;}
+.meta .k{font-family:var(--mono);font-size:7pt;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3);}
+.meta .v{font-size:10pt;font-weight:600;margin-top:2px;}
+html[dir="rtl"] .meta .k{font-family:var(--ar);font-weight:700;text-transform:none;letter-spacing:0;color:var(--fg3);}
+html[dir="rtl"] .meta .v{font-family:var(--ar);font-weight:700;}
+.page.colored .meta{border-color:var(--blue-line);}
+.page.colored .meta > div{border-inline-start-color:var(--blue-line);}
+.page.colored .meta .k{color:var(--teal);}
+
+/* ---- section / exercise header ---- */
+.exh{display:flex;align-items:center;gap:11px;margin:5mm 0 3mm;}
+.exh .idx{font-family:var(--mono);font-size:9pt;font-weight:600;color:var(--fg);
+    border:1px solid var(--hair2);border-radius:6px;padding:4px 11px;letter-spacing:.08em;text-transform:uppercase;}
+.exh h2{font-family:var(--latin);font-size:14pt;font-weight:700;letter-spacing:-.01em;}
+.exh .pts{margin-inline-start:auto;font-family:var(--mono);font-size:8.5pt;font-weight:600;letter-spacing:.1em;
+    color:var(--fg2);border:1px solid var(--hair2);border-radius:20px;padding:4px 13px;}
+html[dir="rtl"] .exh .idx{font-family:var(--ar);font-weight:800;letter-spacing:0;text-transform:none;}
+html[dir="rtl"] .exh h2{font-family:var(--ar);font-weight:800;}
+html[dir="rtl"] .exh .pts{font-family:var(--ar);font-weight:700;letter-spacing:0;}
+.page.colored .exh .idx{background:var(--red);color:#fff;border:none;}
+.page.colored .exh h2{color:var(--blue-dark);}
+.page.colored .exh .pts{background:var(--cream);color:var(--orange);border:none;}
+
+/* ---- // kicker (mono micro-label) ---- */
+.kicker{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;color:var(--fg3);
+    display:block;margin-bottom:6px;direction:ltr;text-align:start;}
+.page.colored .kicker{color:var(--orange);}
+
+/* ---- data / lead callout ---- */
+.data{background:var(--panel);border:1px solid var(--hair);border-inline-start:4px solid var(--fg);
+    border-radius:8px;padding:11px 16px;margin-bottom:4mm;font-size:10pt;line-height:1.65;color:var(--fg2);}
+.data b{color:var(--fg);font-weight:700;}
+html[dir="rtl"] .data{font-size:11pt;line-height:1.9;}
+.page.colored .data{background:var(--blue-soft);border-color:var(--blue-line);border-inline-start-color:var(--blue);}
+
+/* ---- numbered questions ---- */
+ol.q{list-style:none;counter-reset:q;}
+ol.q > li{counter-increment:q;position:relative;padding-inline-start:30px;margin-bottom:2.5mm;font-size:10.4pt;line-height:1.6;}
+ol.q > li::before{content:counter(q);position:absolute;inset-inline-start:0;top:2px;width:21px;height:21px;
+    border:1px solid var(--hair2);border-radius:5px;font-family:var(--mono);font-size:9pt;font-weight:600;color:var(--fg);
+    display:flex;align-items:center;justify-content:center;background:var(--bg);}
+html[dir="rtl"] ol.q > li{font-family:var(--arb);}
+html[dir="rtl"] ol.q > li::before{font-family:var(--ar);font-weight:800;border-radius:50%;}
+.page.colored ol.q > li::before{background:var(--blue);color:#fff;border:none;border-radius:50%;}
+ol.sub{list-style:none;counter-reset:s;margin:4px 0 0;padding-inline-start:2px;border-inline-start:1px solid var(--hair);}
+ol.sub li{counter-increment:s;position:relative;padding:2.5px 0 2.5px 26px;font-size:10.1pt;line-height:1.55;}
+ol.sub li::before{content:counter(s,lower-alpha)".";position:absolute;inset-inline-start:10px;top:2.5px;
+    font-family:var(--mono);font-size:9pt;font-weight:600;color:var(--fg3);}
+.page.colored ol.sub{border-inline-start-color:var(--blue-line);}
+.page.colored ol.sub li::before{color:var(--teal);}
+
+/* ---- example callout (with outlined «مثال / Exemple» tag) ---- */
+.ex{background:var(--panel);border:1px solid var(--hair);border-inline-start:3px solid var(--fg);
+    border-radius:7px;padding:7px 11px;font-size:9.6pt;line-height:1.6;color:var(--fg2);}
+.page.colored .ex{background:var(--blue-soft);border-color:var(--blue-line);border-inline-start-color:var(--blue);}
+.ex .extag{display:inline-block;font-family:var(--ar);font-weight:800;font-size:7.4pt;color:var(--fg);
+    background:#fff;border:1px solid var(--fg);border-radius:5px;padding:1px 9px;margin-inline-end:7px;vertical-align:middle;}
+.page.colored .ex .extag{color:var(--blue-dark);border-color:var(--blue);}
+.ex .q{font-family:var(--ar);font-weight:800;color:var(--fg);}
+.page.colored .ex .q{color:var(--blue-dark);}
+.ex .lbl{font-family:var(--ar);font-weight:800;color:var(--fg);}
+.page.colored .ex .lbl{color:var(--teal);}
+
+/* ---- dashed note callout ---- */
+.note{border:1px dashed var(--hair2);border-radius:9px;padding:11px 16px;margin:4mm 0;background:var(--panel);}
+.note .kicker{margin-bottom:5px;}
+.note .nb{font-size:10pt;line-height:1.7;color:var(--fg2);}
+.note b{color:var(--fg);}
+
+/* ---- footer ---- */
+.footer{position:absolute;right:0;left:0;bottom:0;display:flex;align-items:center;justify-content:space-between;
+    padding:8px 16mm;border-top:1px solid var(--hair);
+    font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);direction:ltr;}
+.footer .b{display:flex;align-items:center;gap:7px;color:var(--fg2);}
+.footer .b .loops{width:18px;height:11px;color:var(--fg);}
+.footer .pn{border:1px solid var(--hair2);color:var(--fg);width:24px;height:24px;border-radius:7px;
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;}
+.page.colored .footer{border-top-color:var(--blue-line);}
+.page.colored .footer .b{color:var(--teal);}
+.page.colored .footer .b .loops{color:var(--orange);}
+.page.colored .footer .pn{background:var(--orange);color:#fff;border:none;font-family:var(--ar);font-weight:800;}
+
+/* ---- CTA banner (last page, optional) ---- */
+.cta{border:1.5px solid var(--fg);border-radius:14px;overflow:hidden;display:flex;margin-top:5mm;background:#fff;}
+.cta .m{flex:1;padding:14px 18px;}
+.cta .k{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;color:var(--fg3);margin-bottom:5px;direction:ltr;text-align:start;}
+.cta .t{font-family:var(--latin);font-weight:800;font-size:14pt;color:var(--fg);}
+.cta .d{font-size:9.5pt;color:var(--fg2);line-height:1.7;margin-top:5px;}
+.cta .s{width:58mm;background:var(--panel);border-inline-start:1.5px solid var(--hair);padding:14px;
+    display:flex;flex-direction:column;gap:10px;justify-content:center;align-items:center;}
+.cta .btn{background:var(--fg);color:#fff;font-family:var(--latin);font-weight:800;font-size:10pt;padding:9px 16px;
+    border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:8px;}
+.cta .btn svg{width:14px;height:14px;}
+.cta .ph{font-family:var(--mono);font-weight:600;font-size:8.5pt;color:var(--fg2);direction:ltr;}
+html[dir="rtl"] .cta .t,html[dir="rtl"] .cta .btn{font-family:var(--ar);}
+.page.colored .cta{border-color:var(--orange);}
+.page.colored .cta .k{color:var(--orange);}
+.page.colored .cta .t{color:var(--blue-dark);}
+.page.colored .cta .s{background:var(--cream);border-inline-start-color:#f1d496;}
+.page.colored .cta .btn{background:var(--orange);}
+.page.colored .cta .ph{color:#8a6a16;}
+
+/* ---- "did you know / هل تعلم" promo banner (optional) ---- */
+.didyou{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--hair2);
+    border-radius:12px;padding:9px 16px;margin-top:3mm;}
+.page.colored .didyou{background:var(--cream);border-color:#f1d496;}
+.didyou .ic{flex:0 0 auto;width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid var(--hair2);
+    display:flex;align-items:center;justify-content:center;}
+.didyou .tt{font-family:var(--ar);font-weight:800;font-size:10.5pt;color:var(--fg);}
+.page.colored .didyou .tt{color:#8a6a16;}
+.didyou .bd{font-size:9pt;color:var(--fg2);line-height:1.55;}
+
+/* ---- "exclusive content" badge (in hero kicker row) ---- */
+.excl{font-family:var(--ar);font-weight:700;font-size:7.5pt;color:var(--fg);background:var(--panel);
+    border:1px solid var(--hair2);border-radius:999px;padding:3px 11px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+.excl .loops{width:15px;height:9px;}
+.page.colored .excl{color:var(--blue-dark);background:var(--blue-soft);border-color:var(--blue-line);}
+
+/* ---- MathJax (CHTML): keep normal weight ---- */
+mjx-container{color:var(--fg) !important;font-weight:400 !important;font-size:1.0em !important;}
+
+/* ---- screen-only export button ---- */
+.toolbar{max-width:210mm;margin:0 auto 18px;display:flex;justify-content:flex-end;padding:0 4px;}
+.toolbar button{font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--fg);color:#fff;border:none;padding:11px 22px;border-radius:8px;cursor:pointer;}
+.page.colored ~ .toolbar button,.colored-doc .toolbar button{background:var(--blue-dark);}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;margin:0;page-break-after:always;}
+  .page:last-child{page-break-after:auto;}
+}
+@page{size:A4;margin:0;}
+</style>
+<style>
+/* ---- TP-specific helpers ---- */
+.lead{font-size:10.2pt;line-height:1.65;color:var(--fg2);margin:1mm 0 3mm;}
+.lead b{color:var(--fg);font-weight:700;}
+
+/* value chips for M=1000 … */
+.vals{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px;}
+.vals span{font-family:var(--mono);font-size:9pt;font-weight:600;background:#fff;border:1px solid var(--blue-line);
+  border-radius:7px;padding:4px 10px;color:var(--blue-dark);}
+.vals span b{color:var(--red);}
+
+/* example: R-array table + computation */
+.exrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:2mm;}
+.rarr{border-collapse:collapse;font-family:var(--mono);}
+.rarr td,.rarr th{border:1px solid var(--hair2);padding:5px 0;width:34px;text-align:center;font-size:9.5pt;}
+.rarr th{border:none;color:var(--fg3);font-weight:600;font-size:8pt;padding-bottom:2px;}
+.rarr .lab{font-family:var(--latin);font-weight:700;border:none;color:var(--fg);width:auto;padding-inline-end:8px;}
+.rarr td.cell{font-weight:700;color:var(--blue-dark);background:var(--blue-soft);}
+.page.colored .rarr td{border-color:var(--blue-line);}
+.calc{font-family:var(--mono);font-size:10pt;color:var(--fg);}
+.calc .op{color:var(--red);font-weight:700;}
+.calc .res{color:var(--teal);font-weight:700;}
+.calc q{font-weight:700;color:var(--blue-dark);quotes:'"' '"';}
+
+/* two-column row (interface + algorithme) */
+.cols{display:flex;gap:5mm;margin:3mm 0;align-items:stretch;}
+.cols > *{flex:1;min-width:0;}
+
+/* GUI window mockup */
+.win{border:1px solid var(--hair2);border-radius:9px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+.page.colored .win{border-color:var(--blue-line);}
+.win .bar{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--panel);border-bottom:1px solid var(--hair);
+  font-family:var(--mono);font-size:7.3pt;letter-spacing:.08em;color:var(--fg3);}
+.page.colored .win .bar{background:var(--blue-soft);border-bottom-color:var(--blue-line);}
+.win .bar i{width:9px;height:9px;border-radius:50%;background:var(--hair2);display:inline-block;}
+.page.colored .win .bar i:nth-child(1){background:var(--red);}
+.page.colored .win .bar i:nth-child(2){background:var(--orange);}
+.page.colored .win .bar i:nth-child(3){background:var(--teal);}
+.win .bar .tt{margin-inline-start:6px;}
+.win .body{padding:13px 15px 15px;display:flex;flex-direction:column;gap:11px;flex:1;}
+.win .wtitle{font-family:var(--latin);font-weight:800;font-size:13pt;text-align:center;color:var(--fg);letter-spacing:-.01em;}
+.page.colored .win .wtitle{color:var(--blue-dark);}
+.win .field{display:flex;align-items:center;gap:9px;font-size:9.4pt;color:var(--fg2);}
+.win .field .inp{flex:1;border:1px solid var(--hair2);border-radius:6px;padding:5px 9px;font-family:var(--mono);
+  font-size:9.5pt;font-weight:600;color:var(--fg);background:#fff;}
+.page.colored .win .field .inp{border-color:var(--blue-line);}
+.win .btn{align-self:center;font-family:var(--latin);font-weight:700;font-size:9.5pt;border:1px solid var(--hair2);
+  border-radius:8px;padding:6px 22px;background:var(--panel);color:var(--fg);}
+.page.colored .win .btn{background:var(--orange);color:#fff;border:none;}
+.win .out{text-align:center;font-size:9.6pt;color:var(--fg);background:var(--panel);border-radius:7px;padding:8px;}
+.page.colored .win .out{background:var(--cream);color:#8a6a16;}
+.win .out b{color:var(--teal);}
+.page.colored .win .out b{color:var(--blue-dark);}
+
+/* algorithm pseudo-code panel */
+.algo{border:1px solid var(--hair2);border-radius:9px;background:var(--panel);padding:12px 15px;
+  font-family:var(--mono);font-size:8.7pt;line-height:1.62;color:var(--fg);white-space:pre;overflow:hidden;}
+.page.colored .algo{border-color:var(--blue-line);background:var(--blue-soft);}
+.algo .kw{color:var(--red);font-weight:700;}
+.algo .ch{color:var(--blue-dark);font-weight:700;}
+.algo .nm{color:var(--teal);font-weight:700;}
+.algo .cap{font-family:var(--mono);font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);
+  display:block;margin-bottom:7px;}
+.page.colored .algo .cap{color:var(--orange);}
+
+.figcap{font-family:var(--mono);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);
+  text-align:center;margin-top:7px;}
+
+/* sub bullets inside a question */
+ul.dash{list-style:none;margin:4px 0 0;padding-inline-start:4px;}
+ul.dash li{position:relative;padding:2.5px 0 2.5px 18px;font-size:10pt;line-height:1.55;color:var(--fg2);}
+ul.dash li::before{content:"›";position:absolute;inset-inline-start:2px;top:2px;color:var(--teal);font-weight:700;}
+.page.colored ul.dash li::before{color:var(--orange);}
+
+/* Arabic promo (RTL island inside an LTR doc) */
+.promo{display:flex;align-items:center;gap:14px;background:var(--cream);border:1px solid #f1d496;border-radius:12px;
+  padding:11px 16px;margin-top:4mm;}
+.promo .ic{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #f1d496;
+  display:flex;align-items:center;justify-content:center;color:var(--orange);}
+.promo .ar{direction:rtl;font-family:var(--arb);font-size:10pt;line-height:1.7;color:#7a5a10;flex:1;}
+.promo .ar b{font-family:var(--ar);font-weight:800;color:#8a6a16;}
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">↓ Export PDF · A4</button></div>
+
+<!-- ============================ PAGE 1 ============================ -->
+<div class="page colored">
+  <div class="wm"><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span></div>
+
+  <div class="topbar">
+    <span class="l"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> WaelDocuments</span>
+    <span class="r">Informatique · TP de révision</span>
+  </div>
+
+  <div class="hero">
+    <svg class="seal" viewBox="0 0 100 100">
+      <defs><path id="ring" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs>
+      <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="50" cy="50" r="31" fill="none" stroke="currentColor" stroke-width="0.8"/>
+      <text font-family="'JetBrains Mono',monospace" font-size="7.3" letter-spacing="1.6" fill="currentColor"><textPath href="#ring" startOffset="2%">WAELDOCUMENTS.COM · CONTENU EXCLUSIF ·</textPath></text>
+      <circle cx="43" cy="51" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="57" cy="51" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    </svg>
+    <div class="kick">Programmation Python · TP de révision</div>
+    <h1>TP N° 1</h1>
+    <div class="sub">Nombres romains → Équivalent décimal</div>
+  </div>
+
+  <div class="meta">
+    <div><div class="k">Matière</div><div class="v">Informatique</div></div>
+    <div><div class="k">Thème</div><div class="v">Conversion romain → décimal</div></div>
+    <div><div class="k">Type</div><div class="v">Travaux pratiques</div></div>
+    <div><div class="k">Outils</div><div class="v">Python · Qt (.ui)</div></div>
+  </div>
+
+  <div class="data">
+    <span class="kicker">// Principe</span>
+    La notation des nombres romains est basée sur l'utilisation des lettres <b>M, D, C, L, X, V et I</b>. L'équivalent décimal d'un nombre Romain se calcule selon le principe suivant :
+    <ul class="dash" style="margin-top:6px;">
+      <li>L'équivalent décimal de chaque chiffre romain est :
+        <div class="vals"><span>M<b>=1000</b></span><span>D<b>=500</b></span><span>C<b>=100</b></span><span>L<b>=50</b></span><span>X<b>=10</b></span><span>V<b>=5</b></span><span>I<b>=1</b></span></div>
+      </li>
+      <li>L'équivalent décimal de la chaîne de chiffres romains est obtenu en additionnant les équivalents décimaux de ses chiffres. Le parcours de la chaîne se fait de gauche à droite et dans le cas où un chiffre est inférieur à son successeur, il sera précédé du signe moins (-).</li>
+    </ul>
+  </div>
+
+  <div class="exh"><span class="idx">Exemple</span><h2>Chaîne « CDXL »</h2></div>
+  <div class="exrow">
+    <table class="rarr">
+      <tr><td class="lab"></td><th>0</th><th>1</th><th>2</th><th>3</th></tr>
+      <tr><td class="lab">R</td><td class="cell">"C"</td><td class="cell">"D"</td><td class="cell">"X"</td><td class="cell">"L"</td></tr>
+    </table>
+    <div class="calc"><q>CDXL</q> = <span class="op">−</span>100 <span class="op">+</span>500 <span class="op">−</span>10 <span class="op">+</span>50 = <span class="res">440</span></div>
+  </div>
+
+  <div class="lead">
+    On se propose de développer une application (interface et code) qui permet de saisir une chaîne <b>R</b> non vides contenant uniquement des chiffres romains. Calculer et d'afficher l'équivalent décimal de R.
+  </div>
+
+  <div class="cols">
+    <figure class="win" style="margin:0;">
+      <div class="bar"><i></i><i></i><i></i><span class="tt">interface_romain.ui</span></div>
+      <div class="body">
+        <div class="wtitle">Romain – Décimal</div>
+        <div class="field"><span>Introduire un nombre romain :</span><span class="inp">CDXL</span></div>
+        <button class="btn" type="button">Equivalent</button>
+        <div class="out">CDXL équivaut en décimal <b>440</b></div>
+      </div>
+    </figure>
+
+    <div class="algo"><span class="cap">// Algorithme — fonction chiffre</span><span class="kw">Fonction</span> chiffre (c : <span class="ch">caractère</span>) : <span class="nm">entier</span>
+<span class="kw">Début</span>
+    <span class="kw">Selon</span> c <span class="kw">faire</span>
+        <span class="ch">"M"</span> : eq ← 1000
+        <span class="ch">"D"</span> : eq ← 500
+        <span class="ch">"C"</span> : eq ← 100
+        <span class="ch">"L"</span> : eq ← 50
+        <span class="ch">"X"</span> : eq ← 10
+        <span class="ch">"V"</span> : eq ← 5
+        <span class="ch">"I"</span> : eq ← 1
+    <span class="kw">Fin Selon</span>
+    <span class="kw">Retourner</span> eq
+<span class="kw">Fin</span></div>
+  </div>
+
+  <div class="footer">
+    <span class="b"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> waeldocuments.com · +216 50 40 40 42 / 50 45 40 40</span>
+    <span class="pn">1</span>
+  </div>
+</div>
+
+<!-- ============================ PAGE 2 ============================ -->
+<div class="page colored">
+  <div class="wm"><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span></div>
+
+  <div class="topbar">
+    <span class="l"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> WaelDocuments</span>
+    <span class="r">Informatique · TP N° 1</span>
+  </div>
+
+  <div class="secbar" style="display:flex;align-items:center;gap:12px;margin:6mm 0 4mm;">
+    <span class="idx" style="font-family:var(--latin);font-weight:800;color:#fff;background:var(--red);border-radius:8px;padding:6px 16px;">Travail demandé</span>
+    <span style="flex:1;height:1px;background:var(--blue-line);"></span>
+    <span class="pts" style="color:var(--orange);background:var(--cream);border-radius:20px;padding:4px 13px;font-family:var(--mono);font-weight:700;font-size:8pt;letter-spacing:.08em;">5 ÉTAPES</span>
+  </div>
+
+  <ol class="q">
+    <li>Concevoir une interface comme illustré ci-dessus et l'enregistré dans votre dossier de travail sous le nom « <b>interface_romain.ui</b> ».</li>
+    <li>Créer un programme Python et l'enregistrer, dans votre dossier de travail, sous le nom « <b>romain.py</b> ».</li>
+    <li>Dans le programme " <b>romain.py</b> ", Implémenter en python la fonction <b>chiffre(c)</b>.</li>
+    <li>Développer, dans le programme " <b>romain.py</b> ", une fonction <b>decimal(R)</b> qui permet calculer et retourner l'équivalent décimal de la chaîne composée des chiffres romains R.</li>
+    <li>Dans le programme " <b>romain.py</b> " :
+      <ul class="dash">
+        <li>ajouter les instructions permettant d'appeler l'interface graphique intitulée « <b>interface_romain.ui</b> ».</li>
+        <li>développer un module <b>"Play"</b>, qui s'exécute à la suite d'un clic sur le bouton <b>"Equivalent"</b>, permettant de récupérer le nombre romain R, exploiter la fonction " <b>decimal</b> " afin de calculer et afficher l'équivalent décimal de la chaîne R via le label dédié à l'affichage dans l'interface « <b>interface_romain.ui</b> ».</li>
+      </ul>
+    </li>
+  </ol>
+
+  <div class="note">
+    <span class="kicker">// NB</span>
+    <div class="nb">Afficher le message d'erreur « <b>Nombre romain invalide</b> » si la donnée récupérée R est incorrecte.</div>
+  </div>
+
+  <div class="promo">
+    <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 2a6 6 0 0 0-4 10c.7.7 1 1.4 1 2h6c0-.6.3-1.3 1-2a6 6 0 0 0-4-10Z"/></svg></span>
+    <div class="ar">يمكنكم شراء كتب ورقية للإمتحانات السابقة للباكالوريا من <b>2009 إلى 2025</b> بالإصلاح الرسمي للوزارة في جميع المواد بأسوام طيارة على صفحتنا — <b>Wael Documents</b>.</div>
+  </div>
+
+  <div class="cta">
+    <div class="m">
+      <div class="k">// Disponible en version papier</div>
+      <div class="t">Annales du Bac · 2009 → 2025</div>
+      <div class="d">Sujets &amp; corrections officiels du Ministère, dans toutes les matières et tous les niveaux. Commandez votre exemplaire sur notre page Facebook.</div>
+    </div>
+    <div class="s">
+      <a class="btn" href="https://facebook.com/WaelDocuments" style="font-size:9.5pt;padding:9px 18px;white-space:nowrap;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5H17V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H8v3h2.5v8h3z"/></svg> اطلب الآن</a>
+      <div class="ph" style="font-size:7.6pt;text-align:center;line-height:1.5;">+216 50 40 40 42<br>50 45 40 40</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="b"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> waeldocuments.com · +216 50 40 40 42 / 50 45 40 40</span>
+    <span class="pn">2</span>
+  </div>
+</div>
+</body>
+</html>

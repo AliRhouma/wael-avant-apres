@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaelDocuments — Sommaire BAC 2009–2025</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#fff; --panel:#fafafa; --hair:#e6e6e9; --hair2:#d6d6db;
+  --fg:#101012; --fg2:#52525b; --fg3:#8a8a93;
+  --blue:#1c9fd4; --blue-dark:#1683b3; --teal:#0fa3b1;
+  --orange:#f29200; --red:#e23b4e; --cream:#fbe9c8;
+  --blue-soft:#f4fafd; --blue-line:#d6ecf7;
+  --mono:'JetBrains Mono',monospace;
+  --latin:'Sora',sans-serif;
+  --ar:'Cairo',sans-serif;
+  --arb:'Tajawal',sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--latin);color:var(--fg);background:#e4e4e7;padding:28px 0;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+.page{
+  width:210mm;height:297mm;background:var(--bg);
+  margin:0 auto 26px;padding:14mm 16mm 18mm;
+  position:relative;overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.16);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 50% -8%, rgba(0,0,0,.03), transparent 70%),
+    radial-gradient(rgba(0,0,0,.045) 1px, transparent 1px);
+  background-size:auto, 22px 22px;background-position:center, 0 0;
+}
+.page > *{position:relative;z-index:1;}
+
+/* watermark */
+.wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;
+    flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+.wm span{font-family:var(--mono);font-weight:700;font-size:33pt;letter-spacing:.14em;
+    color:var(--blue);opacity:.045;white-space:nowrap;text-align:center;}
+
+/* Vertical SOMMAIRE decorative text */
+.som-bg-text{
+  position:absolute;
+  right: -14mm;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family:var(--latin);font-weight:800;font-size:58pt;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--blue-dark);opacity:.06;
+  z-index:0;white-space:nowrap;
+  pointer-events:none;
+  transform-origin:center center;
+}
+
+.loops{width:26px;height:16px;color:var(--fg);flex:0 0 auto;}
+.page.colored .loops{color:var(--orange);}
+
+/* top bar */
+.topbar{display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:7px;border-bottom:2px solid var(--blue-line);
+    font-family:var(--mono);font-size:8pt;letter-spacing:.16em;
+    color:var(--fg3);text-transform:uppercase;margin-bottom:0;}
+.topbar .l{display:flex;align-items:center;gap:9px;color:var(--blue-dark);font-weight:700;}
+.topbar .r{color:var(--teal);}
+
+/* hero */
+.som-hero{
+  padding:4mm 0 3.5mm;
+  border-bottom:1px solid var(--blue-line);
+  margin-bottom:3mm;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.som-hero-left .kick{
+  font-family:var(--mono);font-size:7.5pt;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:4px;
+}
+.som-hero-left h1{
+  font-family:var(--latin);font-size:28pt;font-weight:800;
+  letter-spacing:-.03em;line-height:1;color:var(--blue-dark);
+}
+.som-hero-right{
+  text-align:right;
+  font-family:var(--mono);font-size:7pt;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--fg3);line-height:1.6;
+}
+.som-hero-right strong{
+  display:block;font-size:9pt;
+  color:var(--teal);letter-spacing:.06em;margin-top:3px;
+}
+
+/* front matter strip */
+.front-strip{display:flex;gap:2.5mm;margin-bottom:3mm;}
+.front-item{
+  display:flex;align-items:center;gap:7px;
+  background:var(--blue-soft);border:1px solid var(--blue-line);
+  border-radius:6px;padding:4px 11px;
+  font-family:var(--mono);font-size:8pt;font-weight:600;
+  color:var(--fg2);letter-spacing:.07em;text-transform:uppercase;
+}
+.front-item .fpn{
+  background:var(--blue-dark);color:#fff;font-weight:800;
+  border-radius:4px;padding:2px 8px;font-size:9pt;letter-spacing:.04em;
+}
+.front-item.orange-fi{background:var(--cream);border-color:#f1d496;}
+.front-item.orange-fi .fpn{background:var(--orange);}
+.front-item.rem-fi{background:var(--panel);border-color:var(--hair2);}
+.front-item.rem-fi .fpn{background:var(--fg2);}
+
+/* two-column layout */
+.som-columns{
+  display:flex;gap:3.5mm;
+}
+.som-col{flex:1;display:flex;flex-direction:column;gap:2mm;}
+
+/* session card */
+.session-card{
+  border:1px solid var(--blue-line);border-radius:7px;
+  overflow:hidden;background:var(--bg);
+  flex-shrink:0;
+}
+.session-year{
+  background:var(--blue-dark);color:#fff;
+  font-family:var(--latin);font-weight:800;font-size:8.2pt;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:4.5px 10px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.session-year .ybadge{
+  background:rgba(255,255,255,.18);
+  font-family:var(--mono);font-size:7.5pt;font-weight:700;
+  border-radius:4px;padding:1px 7px;letter-spacing:.05em;
+}
+.session-row{
+  display:flex;align-items:center;
+  padding:4px 10px;border-top:1px solid var(--blue-line);
+}
+.session-row .lbl{
+  font-family:var(--mono);font-size:7.8pt;
+  color:var(--fg2);font-weight:500;letter-spacing:.04em;
+  white-space:nowrap;
+}
+.session-row .dots{
+  flex:1;margin:0 5px;border-bottom:1px dotted var(--hair2);
+  height:1px;align-self:center;
+}
+.session-row .pnum{
+  font-family:var(--mono);font-size:8.5pt;font-weight:700;
+  color:var(--blue-dark);background:var(--blue-soft);
+  border-radius:4px;padding:0 6px;min-width:28px;text-align:center;
+}
+.session-row.ctrl-row .pnum{
+  color:var(--orange);background:var(--cream);
+}
+
+/* session 2025 special: combined Principale/contrôle */
+.session-row.combined .lbl{color:var(--fg);font-weight:600;}
+.session-row.combined .pnum{
+  color:#fff;background:var(--teal);
+}
+
+/* footer */
+.footer{position:absolute;right:0;left:0;bottom:0;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:7px 16mm;border-top:1px solid var(--blue-line);
+    font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--fg3);direction:ltr;}
+.footer .b{display:flex;align-items:center;gap:7px;color:var(--teal);}
+.footer .b .loops{width:18px;height:11px;color:var(--orange);}
+.footer .pn{
+  background:var(--orange);color:#fff;width:24px;height:24px;
+  border-radius:7px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--ar);font-weight:800;font-size:10pt;border:none;
+}
+
+/* toolbar */
+.toolbar{max-width:210mm;margin:0 auto 18px;display:flex;justify-content:flex-end;padding:0 4px;}
+.toolbar button{
+  font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--blue-dark);color:#fff;
+  border:none;padding:11px 22px;border-radius:8px;cursor:pointer;
+}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;margin:0;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">↓ Export PDF · A4</button>
+</div>
+
+<div class="page colored">
+
+  <!-- Diagonal watermark -->
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <!-- Decorative vertical SOMMAIRE text -->
+  <div class="som-bg-text">SOMMAIRE</div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <span class="l">
+      <svg class="loops" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+      </svg>
+      WaelDocuments
+    </span>
+    <span class="r">Examens BAC · Sessions 2009 → 2025</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="som-hero">
+    <div class="som-hero-left">
+      <div class="kick">// Table des matières</div>
+      <h1>Sommaire</h1>
+    </div>
+    <div class="som-hero-right">
+      Sessions officielles · Principale &amp; Contrôle
+      <strong>2009 — 2025</strong>
+    </div>
+  </div>
+
+  <!-- Two-column sessions grid -->
+  <div class="som-columns">
+
+    <!-- LEFT COLUMN: 2009–2017 -->
+    <div class="som-col">
+
+      <div class="session-card">
+        <div class="session-year">Session 2009 <span class="ybadge">P.04</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">04</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">14</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2010 <span class="ybadge">P.19</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">19</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">26</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2011 <span class="ybadge">P.32</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">32</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">36</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2012 <span class="ybadge">P.40</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">40</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">45</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2013 <span class="ybadge">P.51</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">51</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">56</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2014 <span class="ybadge">P.61</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">61</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">66</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2015 <span class="ybadge">P.70</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">70</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">78</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2016 <span class="ybadge">P.83</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">83</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">88</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2017 <span class="ybadge">P.93</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">93</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">98</span></div>
+      </div>
+
+    </div><!-- /left col -->
+
+    <!-- RIGHT COLUMN: 2018–2025 + Remerciement -->
+    <div class="som-col">
+
+      <div class="session-card">
+        <div class="session-year">Session 2018 <span class="ybadge">P.103</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">103</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">108</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2019 <span class="ybadge">P.112</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">112</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">120</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2020 <span class="ybadge">P.128</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">128</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">132</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2021 <span class="ybadge">P.136</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">136</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">140</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2022 <span class="ybadge">P.144</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">144</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">149</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2023 <span class="ybadge">P.154</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">154</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">159</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year">Session 2024 <span class="ybadge">P.164</span></div>
+        <div class="session-row"><span class="lbl">Principale</span><span class="dots"></span><span class="pnum">164</span></div>
+        <div class="session-row ctrl-row"><span class="lbl">Contrôle</span><span class="dots"></span><span class="pnum">169</span></div>
+      </div>
+
+      <div class="session-card">
+        <div class="session-year" style="background:var(--teal);">Session 2025 <span class="ybadge">P.174</span></div>
+        <div class="session-row combined"><span class="lbl">Principale / Contrôle</span><span class="dots"></span><span class="pnum combined">174</span></div>
+      </div>
+
+
+    </div><!-- /right col -->
+
+  </div><!-- /som-columns -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="b">
+      <svg class="loops" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+      </svg>
+      waeldocuments.com · +216 50 40 40 42
+    </span>
+    <span class="pn">3</span>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

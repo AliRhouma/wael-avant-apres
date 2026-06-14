@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaelDocuments — TP de révision N°1 — Nombres Romains</title>
+<style>
+/* ====================================================
+   WAEL DESIGN SYSTEM — canonical theme (colored LTR)
+   ==================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#fff;--panel:#fafafa;--hair:#e6e6e9;--hair2:#d6d6db;
+  --fg:#101012;--fg2:#52525b;--fg3:#8a8a93;
+  --blue:#1c9fd4;--blue-dark:#1683b3;--teal:#0fa3b1;
+  --orange:#f29200;--red:#e23b4e;--cream:#fbe9c8;
+  --blue-soft:#f4fafd;--blue-line:#d6ecf7;
+  --mono:'JetBrains Mono',monospace;
+  --latin:'Sora',sans-serif;
+  --ar:'Cairo',sans-serif;
+  --arb:'Tajawal',sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--latin);color:var(--fg);background:#e4e4e7;padding:28px 0;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+/* Fixed A4 page */
+.page{width:210mm;height:297mm;background:var(--bg);margin:0 auto 26px;
+      padding:12mm 14mm 18mm;position:relative;overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.16);
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% -8%,rgba(0,0,0,.035),transparent 70%),
+        radial-gradient(rgba(0,0,0,.05) 1px,transparent 1px);
+      background-size:auto,22px 22px;background-position:center,0 0;}
+.page>*{position:relative;z-index:1;}
+
+/* Watermark */
+.wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;
+    flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+.wm span{font-family:var(--mono);font-weight:700;font-size:33pt;letter-spacing:.14em;
+    color:#000;opacity:.04;white-space:nowrap;text-align:center;}
+.page.colored .wm span{color:var(--blue);opacity:.05;}
+
+/* Loops logo */
+.loops{width:26px;height:16px;color:var(--fg);flex:0 0 auto;}
+.page.colored .loops{color:var(--orange);}
+
+/* Top bar */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:6px;
+    border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:7.5pt;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--fg3);}
+.topbar .l{display:flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;}
+.page.colored .topbar{border-bottom-color:var(--blue-line);}
+.page.colored .topbar .l{color:var(--blue-dark);}
+.page.colored .topbar .r{color:var(--teal);}
+
+/* Hero */
+.hero{padding:4mm 0 3mm;border-bottom:1px solid var(--hair);margin-bottom:3mm;position:relative;}
+.hero .kick{font-family:var(--mono);font-size:7.5pt;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--fg3);margin-bottom:4px;}
+.hero h1{font-family:var(--latin);font-size:24pt;font-weight:800;letter-spacing:-.02em;line-height:1.1;}
+.page.colored .hero{border-bottom-color:var(--blue-line);}
+.page.colored .hero .kick{color:var(--orange);}
+.page.colored .hero h1{color:var(--blue-dark);}
+
+/* Seal */
+.seal{position:absolute;top:2mm;right:0;width:60px;height:60px;color:var(--fg3);opacity:.82;}
+.page.colored .seal{color:var(--blue);}
+
+/* Kicker micro-label */
+.kicker{font-family:var(--mono);font-size:7pt;letter-spacing:.18em;color:var(--fg3);
+    display:block;margin-bottom:5px;text-align:start;}
+.page.colored .kicker{color:var(--orange);}
+
+/* Data / lead callout */
+.data{background:var(--panel);border:1px solid var(--hair);border-inline-start:4px solid var(--fg);
+    border-radius:8px;padding:11px 15px;margin-bottom:3.5mm;font-size:9.5pt;line-height:1.58;color:var(--fg2);}
+.data b{color:var(--fg);font-weight:700;}
+.page.colored .data{background:var(--blue-soft);border-color:var(--blue-line);border-inline-start-color:var(--blue);}
+
+/* Exercise header */
+.exh{display:flex;align-items:center;gap:11px;margin:3mm 0 2mm;}
+.exh .idx{font-family:var(--mono);font-size:8.5pt;font-weight:600;
+    border:1px solid var(--hair2);border-radius:6px;padding:3px 10px;letter-spacing:.08em;text-transform:uppercase;}
+.exh h2{font-family:var(--latin);font-size:12pt;font-weight:700;}
+.page.colored .exh .idx{background:var(--red);color:#fff;border:none;}
+.page.colored .exh h2{color:var(--blue-dark);}
+
+/* Numbered questions */
+ol.q{list-style:none;counter-reset:q;}
+ol.q>li{counter-increment:q;position:relative;padding-inline-start:25px;margin-bottom:2mm;font-size:9.5pt;line-height:1.5;}
+ol.q>li::before{content:counter(q);position:absolute;inset-inline-start:0;top:2px;width:18px;height:18px;
+    border:1px solid var(--hair2);border-radius:4px;font-family:var(--mono);font-size:8pt;font-weight:600;
+    display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--fg);}
+.page.colored ol.q>li::before{background:var(--blue);color:#fff;border:none;border-radius:50%;}
+
+/* Note dashed */
+.note{border:1px dashed var(--hair2);border-radius:8px;padding:9px 14px;margin:3mm 0;background:var(--panel);}
+.note .nb{font-size:9.5pt;line-height:1.55;color:var(--fg2);}
+.note b{color:var(--fg);}
+
+/* Footer */
+.footer{position:absolute;right:0;left:0;bottom:0;display:flex;align-items:center;justify-content:space-between;
+    padding:6px 14mm;border-top:1px solid var(--hair);
+    font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);direction:ltr;}
+.footer .b{display:flex;align-items:center;gap:7px;color:var(--fg2);}
+.footer .b .loops{width:18px;height:11px;}
+.footer .pn{border:1px solid var(--hair2);color:var(--fg);width:22px;height:22px;border-radius:6px;
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:8pt;}
+.page.colored .footer{border-top-color:var(--blue-line);}
+.page.colored .footer .b{color:var(--teal);}
+.page.colored .footer .b .loops{color:var(--orange);}
+.page.colored .footer .pn{background:var(--orange);color:#fff;border:none;}
+
+/* CTA banner */
+.cta{border:1.5px solid var(--fg);border-radius:12px;overflow:hidden;display:flex;margin-top:3.5mm;background:#fff;}
+.cta .m{flex:1;padding:10px 14px;}
+.cta .k{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;color:var(--fg3);margin-bottom:4px;text-align:start;}
+.cta .t{font-weight:800;font-size:11pt;color:var(--fg);}
+.cta .d{font-size:8.5pt;color:var(--fg2);line-height:1.6;margin-top:4px;}
+.cta .s{width:50mm;background:var(--panel);border-inline-start:1.5px solid var(--hair);padding:12px;
+    display:flex;flex-direction:column;gap:8px;justify-content:center;align-items:center;}
+.cta .btn{background:var(--fg);color:#fff;font-weight:800;font-size:9pt;padding:7px 14px;
+    border-radius:9px;text-decoration:none;display:flex;align-items:center;gap:7px;}
+.cta .btn svg{width:14px;height:14px;}
+.cta .ph{font-family:var(--mono);font-weight:600;font-size:7.5pt;color:var(--fg2);direction:ltr;text-align:center;}
+.page.colored .cta{border-color:var(--orange);}
+.page.colored .cta .k{color:var(--orange);}
+.page.colored .cta .t{color:var(--blue-dark);}
+.page.colored .cta .s{background:var(--cream);border-inline-start-color:#f1d496;}
+.page.colored .cta .btn{background:var(--orange);}
+.page.colored .cta .ph{color:#8a6a16;}
+
+/* ── TP-specific additions ── */
+
+.body-text{font-size:9.5pt;line-height:1.58;color:var(--fg2);margin-bottom:3mm;}
+.body-text b{color:var(--fg);font-weight:700;}
+
+/* Bullet items inside data callout */
+.bull-list{margin-top:5px;}
+.bull-item{display:flex;gap:6px;margin-bottom:2px;font-size:9.5pt;line-height:1.55;}
+.bull-icon{color:var(--blue-dark);font-weight:800;flex:0 0 auto;font-size:10pt;}
+
+/* Example row */
+.exemple-row{display:flex;align-items:flex-start;gap:6mm;margin:2mm 0 3mm;}
+.exemple-lbl{font-family:var(--mono);font-weight:700;font-size:8.5pt;letter-spacing:.05em;
+    color:var(--fg3);white-space:nowrap;padding-top:4px;}
+
+/* Roman numeral table */
+.rom-table{border-collapse:collapse;font-size:8.5pt;}
+.rom-table th{background:var(--blue-soft);color:var(--blue-dark);font-weight:700;
+    padding:3px 11px;border:1px solid var(--blue-line);font-family:var(--mono);}
+.rom-table td{padding:3px 11px;border:1px solid var(--hair);text-align:center;}
+.rom-table .name-cell{font-family:var(--mono);font-weight:700;color:var(--blue-dark);}
+.rom-result{font-family:var(--mono);font-size:8.5pt;margin-top:5px;}
+.page.colored .rom-result{color:var(--blue-dark);}
+
+/* Two-column split layout */
+.split{display:flex;gap:5mm;}
+.col-tasks{flex:1;min-width:0;}
+.col-right{flex:0 0 72mm;}
+
+/* Section title for "Travail demandé" */
+.section-lbl{font-weight:800;font-size:10pt;color:var(--blue-dark);margin-bottom:2mm;display:block;
+    font-family:var(--latin);}
+
+/* Sub-bullets inside task list items */
+.sub-bul{list-style:none;margin:2px 0 1px 20px;padding:0;}
+.sub-bul li{position:relative;padding-inline-start:12px;font-size:9.5pt;line-height:1.5;margin-bottom:1.5mm;}
+.sub-bul li::before{content:"•";position:absolute;inset-inline-start:0;color:var(--blue);font-weight:700;}
+
+/* Interface GUI mockup */
+.mockup{border:1px solid var(--hair2);border-radius:8px;overflow:hidden;margin-bottom:3mm;font-size:8.5pt;}
+.mockup-bar{background:var(--blue-dark);color:#fff;font-weight:700;font-size:9pt;
+    padding:5px 10px;text-align:center;font-family:var(--latin);}
+.mockup-body{padding:9px 12px;background:#ececec;display:flex;flex-direction:column;gap:5px;}
+.mockup-row{display:flex;align-items:center;gap:6px;font-size:8pt;}
+.minput{background:#fff;border:1px solid #999;border-radius:2px;padding:2px 7px;
+    font-family:var(--mono);font-size:8pt;width:68px;display:inline-block;}
+.mbtn{background:#d8d8d8;border:1px solid #aaa;border-radius:4px;padding:2px 10px;
+    font-size:8pt;font-weight:600;font-family:var(--latin);}
+.mout{font-size:8pt;color:var(--blue-dark);font-weight:600;}
+
+/* Pseudocode box */
+.pcode{background:var(--panel);border:1px solid var(--hair);border-radius:8px;padding:8px 11px;}
+.page.colored .pcode{background:var(--blue-soft);border-color:var(--blue-line);}
+.pcode-hd{font-family:var(--mono);font-weight:700;font-size:7.3pt;color:var(--blue-dark);
+    margin-bottom:4px;line-height:1.4;}
+.pc{font-family:var(--mono);font-size:7.2pt;line-height:1.7;color:var(--fg2);display:block;}
+.kw{color:var(--teal);font-weight:700;}
+.ar{color:var(--orange);}
+.i1{padding-inline-start:12px;}
+.i2{padding-inline-start:24px;}
+
+/* Toolbar */
+.toolbar{max-width:210mm;margin:0 auto 18px;display:flex;justify-content:flex-end;padding:0 4px;}
+.toolbar button{font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--blue-dark);color:#fff;border:none;padding:11px 22px;border-radius:8px;cursor:pointer;}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;margin:0;page-break-after:always;}
+  .page:last-child{page-break-after:auto;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">↓ Export PDF · A4</button></div>
+
+<div class="page colored">
+  <!-- Watermark -->
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <span class="l">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      WaelDocuments
+    </span>
+    <span class="r">Informatique · TP de révision</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <!-- Circular seal -->
+    <svg class="seal" viewBox="0 0 100 100">
+      <defs><path id="ring163" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs>
+      <circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="50" cy="50" r="31" fill="none" stroke="currentColor" stroke-width="0.8"/>
+      <text font-family="'JetBrains Mono',monospace" font-size="7.3" letter-spacing="1.6" fill="currentColor">
+        <textPath href="#ring163" startOffset="2%">WAELDOCUMENTS.COM · CONTENU EXCLUSIF ·</textPath>
+      </text>
+      <circle cx="43" cy="51" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="57" cy="51" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    </svg>
+    <div class="kick">Travaux Pratiques · Informatique</div>
+    <h1>TP N°&thinsp;1</h1>
+  </div>
+
+  <!-- Intro / context callout -->
+  <div class="data">
+    <span class="kicker">// Contexte — Notation des nombres romains</span>
+    La notation des nombres romains est basée sur l'utilisation des lettres <b>M, D, C, L, X, V</b> et <b>I</b>.
+    L'équivalent décimal du nombre Romain se calcule selon le principe suivant :
+    <div class="bull-list">
+      <div class="bull-item">
+        <span class="bull-icon">◆</span>
+        <span>L'équivalent décimal de chaque chiffre romain est :
+          <b>M=1000, D=500, C=100, L=50, X=10, V=5</b> et <b>I=1</b>.</span>
+      </div>
+      <div class="bull-item">
+        <span class="bull-icon">◆</span>
+        <span>L'équivalent décimal de la chaîne de chiffres romains est obtenu en additionnant les équivalents
+          décimaux de ses chiffres. Le parcours de la chaîne se fait de gauche à droite et dans le cas où un
+          chiffre est inférieur à son successeur, il sera précédé du signe moins (<b>−</b>).</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exemple -->
+  <div class="exemple-row">
+    <span class="exemple-lbl">Exemple :</span>
+    <div>
+      <table class="rom-table">
+        <tr>
+          <th>R</th><th>C</th><th>D</th><th>X</th><th>L</th>
+        </tr>
+        <tr>
+          <td class="name-cell">CDXL</td>
+          <td>−100</td><td>+500</td><td>−10</td><td>+50</td>
+        </tr>
+      </table>
+      <div class="rom-result">"CDXL" = −100 + 500 − 10 + 50 = <b>440</b></div>
+    </div>
+  </div>
+
+  <!-- Problem statement -->
+  <p class="body-text">
+    On se propose de développer une application (interface et code) qui permet de saisir une chaîne <b>R</b>
+    non vide contenant uniquement des chiffres romains, Calculer et d'afficher l'équivalent décimal de <b>R</b>.
+  </p>
+
+  <!-- ── Two-column split ── -->
+  <div class="split">
+
+    <!-- Left column: Tasks -->
+    <div class="col-tasks">
+      <span class="section-lbl">Travail demandé&nbsp;:</span>
+      <ol class="q">
+        <li>Concevoir une interface comme illustré ci-contre et l'enregistrer dans votre dossier de travail
+            sous le nom <b>« interface_romain.ui »</b>.</li>
+        <li>Créer un programme Python et l'enregistrer dans votre dossier de travail
+            sous le nom <b>« romain.py »</b>.</li>
+        <li>Dans le programme <b>« romain.py »</b>, implémenter en Python la fonction <b>chiffre(c)</b>.</li>
+        <li>Développer, dans le programme <b>« romain.py »</b>, une fonction <b>decimal(R)</b> qui permet
+            calculer et retourner l'équivalent décimal de la chaîne composée des chiffres romain <b>R</b>.</li>
+        <li>
+          Dans le programme <b>« romain.py »</b> :
+          <ul class="sub-bul">
+            <li>ajouter les instructions permettant d'appeler l'interface graphique intitulée
+                <b>« interface_romain.ui »</b>,</li>
+            <li>développer un module qui s'exécute à la suite d'un clic sur le bouton <b>"Equivalent"</b>,
+                permettant de récupérer le nombre romain R, exploiter la fonction <b>'decimal'</b> afin de
+                calculer et afficher l'équivalent décimal de la chaîne R via le label désigné à l'affichage
+                dans l'interface <b>« interface_romain.ui »</b>.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Right column: GUI mockup + Pseudocode -->
+    <div class="col-right">
+      <!-- Interface mockup -->
+      <div class="mockup">
+        <div class="mockup-bar">Romain – Décimal</div>
+        <div class="mockup-body">
+          <div class="mockup-row">
+            <span style="color:var(--fg2);font-size:8pt;">Introduire un nombre romain&nbsp;:</span>
+          </div>
+          <div class="mockup-row">
+            <span class="minput">CDXL</span>
+          </div>
+          <div class="mockup-row" style="justify-content:center;">
+            <span class="mbtn">Equivalent</span>
+          </div>
+          <div class="mockup-row">
+            <span class="mout">CDXL équivaut en décimal 440</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pseudocode: Fonction chiffre -->
+      <div class="pcode">
+        <div class="pcode-hd">Fonction chiffre (c&nbsp;: caractère)&nbsp;: entier</div>
+        <span class="pc"><span class="kw">Début</span></span>
+        <span class="pc i1"><span class="kw">Selon</span> c <span class="kw">faire</span></span>
+        <span class="pc i2">'M'&nbsp;: q <span class="ar">←</span> 1000</span>
+        <span class="pc i2">'D'&nbsp;: q <span class="ar">←</span> 500</span>
+        <span class="pc i2">'C'&nbsp;: q <span class="ar">←</span> 100</span>
+        <span class="pc i2">'L'&nbsp;&nbsp;: q <span class="ar">←</span> 50</span>
+        <span class="pc i2">'X'&nbsp;: q <span class="ar">←</span> 10</span>
+        <span class="pc i2">'V'&nbsp;: q <span class="ar">←</span> 5</span>
+        <span class="pc i2">'I'&nbsp;&nbsp;: q <span class="ar">←</span> 1</span>
+        <span class="pc i1"><span class="kw">Fin Selon</span></span>
+        <span class="pc i1"><span class="kw">Retourner</span> q</span>
+        <span class="pc"><span class="kw">Fin</span></span>
+      </div>
+    </div>
+
+  </div><!-- /.split -->
+
+  <!-- NB note -->
+  <div class="note">
+    <div class="nb">
+      <b>NB&nbsp;:</b> Afficher le message d'erreur <b>«&nbsp;Nombre romain invalide&nbsp;»</b>
+      si la donnée récupérée R est incorrecte.
+    </div>
+  </div>
+
+  <!-- CTA banner -->
+  <div class="cta">
+    <div class="m">
+      <div class="k">// DISPONIBLE EN VERSION PAPIER</div>
+      <div class="t" style="font-family:var(--ar);direction:rtl;">
+        كتب الامتحانات السابقة · 2009 → 2025
+      </div>
+      <div class="d" style="font-family:var(--arb);direction:rtl;text-align:right;">
+        مواضيع وإصلاح رسمي للوزارة في جميع المستويات والمواد. اطلب نسختك عبر صفحتنا على فيسبوك.
+      </div>
+    </div>
+    <div class="s">
+      <a class="btn" href="https://facebook.com/WaelDocuments" style="font-family:var(--ar);">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5H17V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H8v3h2.5v8h3z"/>
+        </svg>
+        اطلب الآن
+      </a>
+      <div class="ph">+216 50 40 40 42<br>+216 50 45 40 40</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="b">
+      <svg class="loops" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+      </svg>
+      waeldocuments.com · +216 50 40 40 42
+    </span>
+    <span class="pn">163</span>
+  </div>
+</div>
+
+</body>
+</html>

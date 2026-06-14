@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaelDocuments — Série Structures de données</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#fff; --panel:#fafafa; --hair:#e6e6e9; --hair2:#d6d6db;
+  --fg:#101012; --fg2:#52525b; --fg3:#8a8a93;
+  --blue:#1c9fd4; --blue-dark:#1683b3; --teal:#0fa3b1;
+  --orange:#f29200; --red:#e23b4e; --cream:#fbe9c8;
+  --blue-soft:#f4fafd; --blue-line:#d6ecf7;
+  --mono:'JetBrains Mono',monospace;
+  --latin:'Sora',sans-serif;
+  --ar:'Cairo',sans-serif;
+  --arb:'Tajawal',sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--latin);color:var(--fg);background:#e4e4e7;padding:28px 0;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+/* ---- compact A4 ---- */
+.page{width:210mm;height:297mm;background:var(--bg);margin:0 auto 26px;
+      padding:9mm 15mm 12mm;position:relative;overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.16);
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% -8%, rgba(0,0,0,.035), transparent 70%),
+        radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px);
+      background-size:auto, 22px 22px; background-position:center, 0 0;}
+.page > *{position:relative;z-index:1;}
+
+/* ---- watermark ---- */
+.wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;
+    flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+.wm span{font-family:var(--mono);font-weight:700;font-size:33pt;letter-spacing:.14em;
+    color:#000;opacity:.04;white-space:nowrap;text-align:center;}
+.page.colored .wm span{color:var(--blue);opacity:.05;}
+
+/* ---- loops mark ---- */
+.loops{width:24px;height:15px;color:var(--fg);flex:0 0 auto;}
+.page.colored .loops{color:var(--orange);}
+
+/* ---- top bar ---- */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:5px;
+    border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:7.5pt;
+    letter-spacing:.16em;color:var(--fg3);text-transform:uppercase;}
+.topbar .l{display:flex;align-items:center;gap:8px;color:var(--fg);font-weight:700;}
+.topbar .r{color:var(--fg3);}
+.page.colored .topbar{border-bottom-color:var(--blue-line);}
+.page.colored .topbar .l{color:var(--blue-dark);}
+.page.colored .topbar .r{color:var(--teal);}
+
+/* ---- hero (compact) ---- */
+.hero{padding:3mm 0 2.5mm;border-bottom:1px solid var(--hair);margin-bottom:3mm;position:relative;}
+.hero .kick{font-family:var(--mono);font-size:7.5pt;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--fg3);margin-bottom:6px;}
+.hero h1{font-family:var(--latin);font-size:17.5pt;font-weight:800;letter-spacing:-.02em;line-height:1.12;color:var(--fg);}
+.page.colored .hero{border-bottom-color:var(--blue-line);}
+.page.colored .hero .kick{color:var(--orange);}
+.page.colored .hero h1{color:var(--blue-dark);}
+
+/* ---- exercise header ---- */
+.exh{display:flex;align-items:center;gap:10px;margin:3mm 0 1.5mm;}
+.exh .idx{font-family:var(--mono);font-size:8.5pt;font-weight:700;color:var(--fg);
+    border:1px solid var(--hair2);border-radius:5px;padding:3px 10px;
+    letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;}
+.page.colored .exh .idx{background:var(--red);color:#fff;border:none;}
+
+/* ---- exclusive badge ---- */
+.excl{font-family:var(--ar);font-weight:700;font-size:8pt;color:var(--blue-dark);
+    background:var(--blue-soft);border:1px solid var(--blue-line);
+    border-radius:999px;padding:3px 12px;display:inline-flex;align-items:center;
+    gap:6px;white-space:nowrap;margin-left:auto;}
+.excl .loops{width:13px;height:8px;color:var(--orange);}
+
+/* ---- exercise statement ---- */
+.stmt{font-size:9.5pt;line-height:1.58;font-style:italic;margin-bottom:2mm;color:var(--fg2);}
+.stmt strong{font-style:normal;font-weight:700;font-family:var(--mono);font-size:9pt;color:var(--fg);}
+
+/* ---- Exemple callout (compact) ---- */
+.ex{background:var(--blue-soft);border:1px solid var(--blue-line);border-left:3px solid var(--blue);
+    border-radius:6px;padding:6px 12px;font-size:9.3pt;line-height:1.58;
+    color:var(--fg2);margin-bottom:2.5mm;}
+.ex .extag{display:inline-block;font-family:var(--mono);font-weight:700;font-size:7pt;
+    color:var(--blue-dark);background:#fff;border:1px solid var(--blue);border-radius:4px;
+    padding:1px 8px;margin-right:7px;vertical-align:middle;letter-spacing:.1em;text-transform:uppercase;}
+.ex ul{list-style:none;margin-top:5px;padding-left:8px;}
+.ex ul li{padding:1.5px 0 1.5px 16px;position:relative;font-size:9.3pt;line-height:1.55;}
+.ex ul li::before{content:"•";position:absolute;left:2px;top:1px;color:var(--blue);font-weight:700;font-size:10pt;}
+.ex ul ul{margin-left:13px;margin-top:2px;}
+.ex ul ul li::before{content:"—";font-size:8.5pt;top:2px;}
+.ex .mono-val{font-family:var(--mono);font-weight:700;color:var(--blue-dark);}
+
+/* ---- body list (Ex 4 nested bullets) ---- */
+.body-list{list-style:none;padding-left:6px;margin-bottom:2mm;font-size:9.5pt;
+    line-height:1.65;color:var(--fg2);}
+.body-list > li{padding-left:16px;position:relative;margin-bottom:2px;}
+.body-list > li::before{content:"•";position:absolute;left:1px;color:var(--fg3);
+    font-size:10pt;line-height:1.5;}
+.body-list .sub-list{list-style:none;padding-left:12px;margin-top:2px;}
+.body-list .sub-list li{padding-left:12px;position:relative;font-size:9.2pt;color:var(--fg2);}
+.body-list .sub-list li::before{content:"—";position:absolute;left:0;font-size:8.5pt;}
+.body-list strong{font-style:normal;font-weight:700;font-family:var(--mono);font-size:9pt;color:var(--fg);}
+
+/* ---- footer ---- */
+.footer{position:absolute;right:0;left:0;bottom:0;display:flex;align-items:center;
+    justify-content:space-between;padding:7px 15mm;border-top:1px solid var(--hair);
+    font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--fg3);direction:ltr;}
+.footer .b{display:flex;align-items:center;gap:7px;color:var(--fg2);}
+.footer .b .loops{width:16px;height:10px;color:var(--fg);}
+.footer .pn{border:1px solid var(--hair2);color:var(--fg);width:22px;height:22px;border-radius:6px;
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:8pt;}
+.page.colored .footer{border-top-color:var(--blue-line);}
+.page.colored .footer .b{color:var(--teal);}
+.page.colored .footer .b .loops{color:var(--orange);}
+.page.colored .footer .pn{background:var(--orange);color:#fff;border:none;font-weight:800;}
+
+/* ---- toolbar ---- */
+.toolbar{max-width:210mm;margin:0 auto 18px;display:flex;justify-content:flex-end;padding:0 4px;}
+.toolbar button{font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.1em;
+    text-transform:uppercase;background:var(--blue-dark);color:#fff;border:none;
+    padding:11px 22px;border-radius:8px;cursor:pointer;}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;margin:0;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">↓ Export PDF · A4</button></div>
+
+<div class="page colored">
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <div class="topbar">
+    <span class="l">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      WaelDocuments
+    </span>
+    <span class="r">Séries corrigées</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="kick">Informatique · Structures de données</div>
+    <h1>Série : Entrainement sur les structures de données, structures simples et structures conditionnelles</h1>
+  </div>
+
+  <!-- ── Ex 1 ── -->
+  <div class="exh"><span class="idx">Ex 1</span></div>
+  <p class="stmt">Ecrire un programme qui lit deux réels a et b comme étant les deux cotés droits d'un triangle rectangle puis d'afficher la longeur de l'hypoténuse correspondante.</p>
+  <div class="ex">
+    <span class="extag">Exemple</span>
+    <ul>
+      <li>Entrée : a=3, b=4</li>
+      <li>Sortie : 5.00</li>
+    </ul>
+  </div>
+
+  <!-- ── Ex 2 ── -->
+  <div class="exh"><span class="idx">Ex 2</span></div>
+  <p class="stmt">Ecrire un programme intitulé <strong>SOM_CUB</strong> qui permet de calculer et d'afficher la somme des cubes des chiffres d'un entier n de trois chiffres.</p>
+  <div class="ex">
+    <span class="extag">Exemple</span>
+    <ul>
+      <li>Entrée : 253</li>
+      <li>Sortie : la somme des cubes de chiffres de 253 est 160</li>
+    </ul>
+  </div>
+
+  <!-- ── Ex 3 ── -->
+  <div class="exh"><span class="idx">Ex 3</span></div>
+  <p class="stmt">Ecrire un programme qui permet de permuter le contenu de deux entiers A et B.</p>
+  <div class="ex">
+    <span class="extag">Exemples</span>
+    <ul>
+      <li>A = 18 , B = 35 → Le programme affichera : A =35 , B = 18</li>
+      <li>A = 138 , B = 27 → Le programme affichera : A = 27 , B = 138</li>
+    </ul>
+  </div>
+
+  <!-- ── Ex 4 ── -->
+  <div class="exh">
+    <span class="idx">Ex 4</span>
+    <span class="excl">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      محتوى خاص · Wael Documents
+    </span>
+  </div>
+  <p class="stmt" style="margin-bottom:1.5mm;">Ecrire un programme qui permet de :</p>
+  <ul class="body-list">
+    <li>
+      Tirer deux nombres au hasard (aléatoirement) utiliser la fonction <strong>aléa</strong>
+      <ul class="sub-list">
+        <li>Premier nombre N1 de 3 chiffres.</li>
+        <li>Deuxième nombre N2 de deux chiffres.</li>
+      </ul>
+    </li>
+    <li>Insérer le nombre N1 entre les deux chiffres de N2 dans un troisième nombre N3.</li>
+  </ul>
+  <div class="ex">
+    <span class="extag">Exemple</span>
+    <span style="font-size:9.3pt;margin-left:4px;">N1 = 345 et N2 = 98 en aura alors N3 = <span class="mono-val" style="text-decoration:underline;">93458</span></span>
+  </div>
+
+  <!-- ── Ex 5 ── -->
+  <div class="exh"><span class="idx">Ex 5</span></div>
+  <p class="stmt">Ecrire un programme qui permet de saisir une chaine de caractères ch formée d'un nom et d'un prénom séparé par un seul espace et afficher une chaine résultat RES contenant les deux lettres initiales en majuscules .</p>
+  <div class="ex">
+    <span class="extag">Exemple</span>
+    <ul>
+      <li>Entrée : "foulen benfoulen "</li>
+      <li>Sortie : Les initiales sont FB</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <span class="b">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      waeldocuments.com · +216 50 40 40 42 / 50 45 40 40
+    </span>
+    <span class="pn">1</span>
+  </div>
+</div>
+</body>
+</html>

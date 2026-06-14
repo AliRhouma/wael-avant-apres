@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wael Documents — الأنية والغيرية</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#fff; --panel:#fafafa; --hair:#e6e6e9; --hair2:#d6d6db;
+  --fg:#101012; --fg2:#52525b; --fg3:#8a8a93;
+  --blue:#1c9fd4; --blue-dark:#1683b3; --teal:#0fa3b1;
+  --orange:#f29200; --red:#e23b4e; --cream:#fbe9c8;
+  --blue-soft:#f4fafd; --blue-line:#d6ecf7;
+  --mono:'JetBrains Mono',monospace;
+  --latin:'Sora',sans-serif;
+  --ar:'Cairo',sans-serif;
+  --arb:'Tajawal',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--latin);color:var(--fg);background:#e4e4e7;padding:28px 0;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+html[dir="rtl"] body{font-family:var(--arb);}
+
+.page{width:210mm;height:297mm;background:var(--bg);margin:0 auto 26px;
+      padding:15mm 16mm 18mm;position:relative;overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.16);
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% -8%, rgba(0,0,0,.035), transparent 70%),
+        radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px);
+      background-size:auto, 22px 22px; background-position:center, 0 0;}
+.page > *{position:relative;z-index:1;}
+
+.wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;
+    flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+.wm span{font-family:var(--mono);font-weight:700;font-size:33pt;letter-spacing:.14em;
+    color:#000;opacity:.04;white-space:nowrap;text-align:center;}
+.page.colored .wm span{color:var(--blue);opacity:.05;}
+
+.loops{width:26px;height:16px;color:var(--fg);flex:0 0 auto;}
+.page.colored .loops{color:var(--orange);}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;
+    border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:8pt;
+    letter-spacing:.16em;color:var(--fg3);text-transform:uppercase;}
+.topbar .l{display:flex;align-items:center;gap:9px;color:var(--fg);font-weight:700;}
+html[dir="rtl"] .topbar{text-transform:none;}
+html[dir="rtl"] .topbar .r{font-family:var(--ar);font-weight:700;color:var(--fg2);font-size:9.5pt;letter-spacing:0;}
+.page.colored .topbar{border-bottom-color:var(--blue-line);}
+.page.colored .topbar .l{color:var(--blue-dark);}
+.page.colored .topbar .r{color:var(--teal);}
+
+.hero{padding:4mm 0 3mm;border-bottom:1px solid var(--hair);margin-bottom:3mm;position:relative;}
+.hero .kick{font-family:var(--mono);font-size:8.5pt;letter-spacing:.3em;text-transform:uppercase;color:var(--fg3);margin-bottom:7px;}
+.hero h1{font-family:var(--latin);font-size:27pt;font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--fg);}
+.hero .sub{font-family:var(--mono);font-size:9pt;letter-spacing:.12em;text-transform:uppercase;color:var(--fg2);margin-top:9px;}
+html[dir="rtl"] .hero .kick{font-family:var(--ar);letter-spacing:.12em;text-transform:none;font-weight:700;}
+html[dir="rtl"] .hero h1{font-family:var(--ar);font-weight:900;line-height:1.2;}
+html[dir="rtl"] .hero .sub{font-family:var(--ar);font-weight:600;text-transform:none;letter-spacing:0;}
+.page.colored .hero{border-bottom-color:var(--blue-line);}
+.page.colored .hero .kick{color:var(--orange);}
+.page.colored .hero h1{color:var(--blue-dark);}
+.page.colored .hero .sub{color:var(--teal);}
+
+.excl{font-family:var(--ar);font-weight:700;font-size:7.5pt;color:var(--fg);background:var(--panel);
+    border:1px solid var(--hair2);border-radius:999px;padding:3px 11px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+.excl .loops{width:15px;height:9px;}
+.page.colored .excl{color:var(--blue-dark);background:var(--blue-soft);border-color:var(--blue-line);}
+
+.kicker{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;color:var(--fg3);display:block;margin-bottom:6px;direction:ltr;text-align:start;}
+.page.colored .kicker{color:var(--orange);}
+
+/* lead text body */
+.lead{font-family:var(--arb);font-size:10pt;line-height:1.62;color:#2b2b30;text-align:justify;}
+.lead p{margin-bottom:1.9mm;}
+.term{font-family:var(--ar);font-weight:800;color:var(--blue-dark);}
+.term.r{color:var(--red);}
+.lead .who{font-family:var(--ar);font-weight:800;color:var(--teal);}
+
+/* numbered question list */
+ol.q{list-style:none;counter-reset:q;margin-top:1mm;}
+ol.q > li{counter-increment:q;position:relative;padding-inline-start:28px;margin-bottom:1.6mm;font-size:10pt;line-height:1.4;font-family:var(--arb);font-weight:500;}
+ol.q > li::before{content:counter(q);position:absolute;inset-inline-start:0;top:0;width:19px;height:19px;
+    border-radius:50%;font-family:var(--ar);font-size:9pt;font-weight:800;display:flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;}
+
+.didyou{display:flex;align-items:center;gap:12px;background:var(--cream);border:1px solid #f1d496;
+    border-radius:12px;padding:8px 16px;margin-top:3mm;}
+.didyou .ic{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #f1d496;display:flex;align-items:center;justify-content:center;}
+.didyou .tt{font-family:var(--ar);font-weight:800;font-size:10pt;color:#8a6a16;}
+.didyou .bd{font-size:8.6pt;color:var(--fg2);line-height:1.5;}
+
+.footer{position:absolute;right:0;left:0;bottom:0;display:flex;align-items:center;justify-content:space-between;
+    padding:8px 16mm;border-top:1px solid var(--hair);
+    font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);direction:ltr;}
+.footer .b{display:flex;align-items:center;gap:7px;color:var(--fg2);}
+.footer .b .loops{width:18px;height:11px;color:var(--fg);}
+.footer .pn{border:1px solid var(--hair2);color:var(--fg);width:24px;height:24px;border-radius:7px;
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;}
+.page.colored .footer{border-top-color:var(--blue-line);}
+.page.colored .footer .b{color:var(--teal);}
+.page.colored .footer .b .loops{color:var(--orange);}
+.page.colored .footer .pn{background:var(--orange);color:#fff;border:none;font-family:var(--ar);font-weight:800;}
+
+.toolbar{max-width:210mm;margin:0 auto 18px;display:flex;justify-content:flex-end;padding:0 4px;}
+.toolbar button{font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--blue-dark);color:#fff;border:none;padding:11px 22px;border-radius:8px;cursor:pointer;}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;margin:0;page-break-after:always;}
+  .page:last-child{page-break-after:auto;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">↓ تصدير PDF · A4</button></div>
+
+<div class="page colored">
+  <div class="wm"><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span></div>
+
+  <div class="topbar">
+    <span class="l"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> WaelDocuments</span>
+    <span class="r">الفلسفة · المحور الأول</span>
+  </div>
+
+  <div class="hero">
+    <div class="kickrow" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+      <span class="kick">الفلسفة · المحور الأوّل</span>
+      <span class="excl"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> محتوى حصريّ · Wael Documents</span>
+    </div>
+    <h1>الأنية والغيرية</h1>
+    <div class="sub">تمهيد مبسّط قبل الدرس</div>
+  </div>
+
+  <div class="secbar" style="display:flex;align-items:center;gap:12px;margin-bottom:4mm;">
+    <span class="idx" style="font-family:var(--ar);font-weight:800;font-size:10pt;color:#fff;background:var(--red);border-radius:8px;padding:5px 15px;">تمهيد مبسّط قبل الدرس</span>
+    <span style="flex:1;height:1px;background:var(--blue-line);"></span>
+  </div>
+
+  <div class="lead">
+    <p>احنا ديما نحكيو على <span class="term">«أنا»</span> و<span class="term">«هو»</span>، على <span class="term">«روحي»</span> و<span class="term">«الآخرين»</span>، أما فكّرت مرّة شكون هو الـ<span class="term">«أنا»</span> هذا؟! هل نعرف روحي وحدي؟ ولا لازم وجود الغير باش نفهم شكون نكون؟</p>
+
+    <p>في الفلسفة، <span class="term">«الأنا»</span> ما هوش كيان بسيط راهو كائن يفكّر، يحسّ، يعيش، ويتفاعل. لكن كيفاش نعرفوه بالضبط؟ هل نعرف <span class="term">«روحي»</span> خاطر نفكّر؟ كما قال <span class="who">ديكارت</span>: «أنا أفكّر إذن أنا موجود؟»</p>
+
+    <p>ولا نعرفها خاطر نعيش بجسدي؟ موش نملك جسد كهو، بل أنا موجود بيه، نتحرّك، نحسّ، ونتواصل بيه مع العالم، وبلاش بيه ما نجمّوش نتصوّروا فكرة وجودنا في العالم.</p>
+
+    <p>أما فما زادة <span class="term">«الغير»</span> شكون المقصود بيه؟ هو الشخص اللي مش أنا. ينجم يكون صاحبي، عدوّي، أو حتى شخص مجهول، أما وجوده يطرح تحدّي: هل <span class="term">«الآخر»</span> ضروري باش نكتشف ذاتي؟</p>
+
+    <p>فما فلسفات تقول: من غير الغير، ما نقدرش نفهم روحي. الغير كيما مراية، يظهرلي شكون نكون، سواء بالاعتراف ولا بالرفض.</p>
+
+    <p>لكن زادة، الغير ينجم يهدّد وجودي، ياخذ مكاني، يحكم عليّا، وهنا يبدأ الصراع بين <span class="term">«أنا»</span> و<span class="term">«هو»</span>.</p>
+
+    <p>ومن هنا نرجعو للحديث على الجسد وعلاقتنا بالعالم والناس لتعيش معانا: هل أنا نعيش فقط في عقلي؟ ولا الجسد زادة هو أنا؟ والآخرين نجم نعيش معاهم بسلام ولا لازم نحمي روحي منهم؟</p>
+
+    <p>الجسد ما هوش حاجة ثانوية، هو اللي نعبّر بيه، نحسّ بيه، ونتفاعل بيه مع الغير. الجسد يربطني بالعالم، يخلّيني نحسّ باللذّة، والألم، بالخوف، بالوجود. والناس كيما العائلة والأصحاب والمجتمع لازم نتفاعل معاهم ونتواصل.</p>
+
+    <p>لو يش نجم نعرف مكانتي بينهم وشنوة هي حقيقتي.</p>
+
+    <p>وما نجمناش نكمّلو الحديث على الأنا، من غير ما نحكيو على التاريخ. التاريخ ما هوش كان الماضي متاع الشعوب، بل زادة الماضي متاع كل واحد فينا. تجاربنا، الطفولة، القرارات اللي خذيناها، النجاحات، الغلطات... هي اللي تبني شخصيتنا، وتشكّل وعينا.</p>
+
+    <p>يعني، <span class="term">«الأنا»</span> مش موجودة في لحظة فقط أو الحاضر فقط بل هي نتيجة لمسار، لتاريخ خاص بينا، لتاريخ خاص. الأنا، من غير ما نرجعو للماضي؟ للتاريخ؟</p>
+
+    <p>محور <span class="term">«الأنية والغيرية»</span> ساهل كي نفهمو، ونجم نختزلوه في الأسئلة اللي يطرحها:</p>
+  </div>
+
+  <ol class="q">
+    <li>شكون نكون؟</li>
+    <li>كيفاش نعرف روحي؟</li>
+    <li>شنية علاقتي بالآخر؟</li>
+    <li>هل نملك ذاتنا؟</li>
+    <li>وشنية قيمة الغير في بناء الأنا؟</li>
+  </ol>
+
+  <div class="didyou">
+    <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#9a7412" stroke-width="2" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 2a6 6 0 0 0-4 10c.7.7 1 1.4 1 2h6c0-.6.3-1.3 1-2a6 6 0 0 0-4-10Z"/></svg></span>
+    <div><div class="tt">هل تعلم؟</div><div class="bd">يوفّر <b>Wael Documents</b> دروسًا ومراجعاتٍ في جميع المستويات والمواد — اطلب نسختك عبر صفحتنا على فيسبوك.</div></div>
+  </div>
+
+  <div class="footer">
+    <span class="b"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> waeldocuments.com · +216 50 40 40 42</span>
+    <span class="pn">1</span>
+  </div>
+</div>
+</body>
+</html>

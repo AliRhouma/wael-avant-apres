@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaelDocuments — La fonction reproductrice masculine · Chapitre 1</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#fff; --panel:#fafafa; --hair:#e6e6e9; --hair2:#d6d6db;
+  --fg:#101012; --fg2:#52525b; --fg3:#8a8a93;
+  --blue:#1c9fd4; --blue-dark:#1683b3; --teal:#0fa3b1;
+  --orange:#f29200; --red:#e23b4e; --cream:#fbe9c8;
+  --blue-soft:#f4fafd; --blue-line:#d6ecf7;
+  --mono:'JetBrains Mono',monospace;
+  --latin:'Sora',sans-serif;
+  --ar:'Cairo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--latin);color:var(--fg);background:#e4e4e7;padding:24px 0;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+/* ---- A4 page (fixed height = WYSIWYG) ---- */
+.page{width:210mm;height:297mm;background:var(--bg);margin:0 auto 24px;
+      padding:9mm 12mm 15mm;position:relative;overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.16);
+      background-image:radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px);
+      background-size:22px 22px;}
+.page > *{position:relative;z-index:1;}
+
+/* ---- watermark ---- */
+.wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;
+    flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+.wm span{font-family:var(--mono);font-weight:700;font-size:30pt;letter-spacing:.14em;
+    color:var(--blue);opacity:.04;white-space:nowrap;text-align:center;}
+
+/* ---- loops mark ---- */
+.loops{width:24px;height:14px;flex:0 0 auto;color:var(--orange);}
+.loops-sm{width:16px;height:10px;color:var(--orange);}
+
+/* ---- top bar ---- */
+.topbar{display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:5px;border-bottom:2px solid var(--blue);
+    font-family:var(--mono);font-size:7.5pt;letter-spacing:.13em;text-transform:uppercase;margin-bottom:0;}
+.topbar .l{display:flex;align-items:center;gap:8px;color:var(--blue-dark);font-weight:700;}
+.topbar .r{color:var(--red);font-weight:700;font-size:8pt;letter-spacing:.06em;text-transform:none;
+    font-family:var(--latin);}
+
+/* ---- www sub-header ---- */
+.subhdr{display:flex;justify-content:space-between;align-items:center;
+    background:var(--blue-soft);border:1px solid var(--blue-line);border-top:none;
+    padding:4px 12px;margin-bottom:5px;}
+.subhdr .site{display:flex;align-items:center;gap:6px;font-family:var(--mono);
+    font-size:8pt;color:var(--blue-dark);font-weight:700;}
+.subhdr .globe{font-size:9pt;}
+.subhdr .book{font-size:9pt;}
+.subhdr .cours-title{font-family:var(--latin);font-size:12pt;font-weight:800;color:var(--blue-dark);}
+
+/* ---- image placeholder ---- */
+.img-ph{border:1.5px dashed var(--hair2);border-radius:5px;height:30px;margin-top:5px;
+    display:flex;align-items:center;justify-content:center;background:#f5f5f7;
+    color:var(--fg3);gap:5px;font-family:var(--mono);font-size:6.5pt;letter-spacing:.08em;}
+.img-ph svg{opacity:.45;}
+
+/* ---- content body box ---- */
+.body-box{border:1px solid var(--blue-line);border-inline-start:4px solid var(--blue);
+    border-radius:7px;padding:9px 14px 9px;background:var(--blue-soft);
+    font-size:9.2pt;line-height:1.62;color:var(--fg);margin-bottom:7px;}
+.body-intro{margin-bottom:8px;}
+
+.ph{margin-top:9px;}
+.ph-lbl{font-weight:700;text-decoration:underline;display:inline;}
+.ph-body{color:var(--fg2);display:inline;}
+.ph-sublist{list-style:none;margin:5px 0 0 20px;padding:0;}
+.ph-sublist li{position:relative;padding-left:16px;line-height:1.58;color:var(--fg2);margin-top:3px;}
+.ph-sublist li::before{content:"•";position:absolute;left:3px;color:var(--blue);font-weight:700;}
+.ph-indent{margin-left:18px;color:var(--fg2);margin-top:3px;display:block;}
+
+/* ---- section 3 header ---- */
+.sec3-hdr{font-family:var(--latin);font-weight:800;font-size:10.5pt;color:#fff;
+    background:var(--blue-dark);border-radius:6px;padding:5px 14px;margin-bottom:7px;
+    display:flex;align-items:center;gap:8px;margin-top:7px;}
+.sec3-hdr .num{font-family:var(--mono);font-weight:600;color:var(--cream);font-size:9pt;}
+
+/* ---- données table ---- */
+.dtable{width:100%;border-collapse:collapse;font-size:8.4pt;line-height:1.52;}
+
+.dtable thead th{font-family:var(--latin);font-weight:700;font-style:italic;font-size:8.8pt;
+    padding:7px 10px;text-align:center;background:var(--blue-soft);
+    border:1px solid var(--blue-line);color:var(--blue-dark);letter-spacing:.02em;}
+
+.dtable tbody td{padding:7px 9px;border:1px solid var(--hair2);vertical-align:top;color:var(--fg);}
+.dtable tbody tr:nth-child(even) td{background:#fafffe;}
+
+.dtable .col-e{width:30%;}
+.dtable .col-r{width:31%;}
+.dtable .col-c{width:39%;}
+
+.exp-n{font-family:var(--mono);font-weight:700;font-size:8pt;color:var(--blue-dark);}
+.res-italic{font-style:italic;color:var(--fg2);}
+.bul-list{list-style:none;padding:0;margin:0;}
+.bul-list li{padding-left:14px;position:relative;line-height:1.52;margin-top:3px;}
+.bul-list li:first-child{margin-top:0;}
+.bul-list li::before{content:"•";position:absolute;left:2px;color:var(--blue);}
+.bul-list li em{font-style:italic;color:var(--fg2);}
+
+/* ---- footer ---- */
+.footer{position:absolute;right:0;left:0;bottom:0;display:flex;align-items:center;
+    justify-content:space-between;padding:7px 12mm;border-top:1px solid var(--blue-line);
+    font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);}
+.footer .fb{display:flex;align-items:center;gap:7px;color:var(--teal);}
+.footer .pn{background:var(--orange);color:#fff;width:22px;height:22px;border-radius:6px;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:9pt;}
+
+/* ---- toolbar ---- */
+.toolbar{max-width:210mm;margin:0 auto 16px;display:flex;justify-content:flex-end;padding:0 4px;}
+.toolbar button{font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.1em;
+    text-transform:uppercase;background:var(--blue-dark);color:#fff;border:none;
+    padding:10px 22px;border-radius:8px;cursor:pointer;}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;margin:0;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+
+<div class="toolbar"><button onclick="window.print()">↓ Export PDF · A4</button></div>
+
+<div class="page">
+  <!-- watermark -->
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <span class="l">
+      <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      WaelDocuments
+    </span>
+    <span class="r">La fonction reproductrice masculine &nbsp;·&nbsp; Chapitre 1</span>
+  </div>
+
+  <!-- 4 phases body box -->
+  <div class="body-box">
+    <div class="body-intro">C'est un processus continu, démarre à la puberté et se poursuit toute la vie adulte. Les cytologistes l'ont subdivisé en 4 étapes :</div>
+
+    <div class="ph">
+      <span class="ph-lbl">a)&nbsp;&nbsp;Phase de multiplication :</span><br>
+      <span class="ph-indent">Les spermatogonies se multiplient par mitoses successives et se poussent vers la lumière. Les spermatogonies périphériques ne cessent jamais de se diviser afin de renouveler le stock des cellules souches.</span>
+    </div>
+
+    <div class="ph">
+      <span class="ph-lbl">b)&nbsp;&nbsp;Phase d'accroissement :</span><br>
+      <span class="ph-indent">Les spermatogonies issues de 3 mitoses successives augmentent de taille et font la synthèse d'ADN, elles deviennent des spermatocytes I à 2n = 46 chrs à deux chromatides.</span>
+    </div>
+
+    <div class="ph">
+      <span class="ph-lbl">c)&nbsp;&nbsp;Phase de maturation :</span><br>
+      <span class="ph-indent">C'est la méiose : chaque spermatocyte I effectue une méiose et donne 4 cellules :</span>
+      <ul class="ph-sublist">
+        <li>Division réductionnelle : on obtient 2 spermatocytes II à n= 23 chrs à deux chromatides</li>
+        <li>Division équationnelle : on obtient 4 spermatides à n = 23 chrs simples.</li>
+      </ul>
+    </div>
+
+    <div class="ph">
+      <span class="ph-lbl">d)&nbsp;&nbsp;Phase de différenciation ou spermiogenèse : voir schéma</span><br>
+      <span class="ph-indent">C'est l'ensemble des transformations morphologiques que subit une spermatide pour aboutir à un spermatozoïde :</span>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="sec3-hdr">
+    <span class="num">3.</span>
+    Données expérimentales.
+  </div>
+
+  <!-- Table -->
+  <table class="dtable">
+    <thead>
+      <tr>
+        <th class="col-e"><em>Expériences</em></th>
+        <th class="col-r"><em>Résultats</em></th>
+        <th class="col-c"><em>Conclusions</em></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="exp-n">1)</span> On castre un animal jeune impubère.<br>
+          <u>Castration</u> : ablation des testicules.
+        </td>
+        <td>
+          <span class="res-italic">L'animal reste toujours impubère.</span>
+        </td>
+        <td>
+          Les testicules sont responsables de l'apparition des signes de la puberté : apparition des caractères sexuels secondaires
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="exp-n">2)</span> On castre un animal adulte fertile.
+          <div class="img-ph"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>image</div>
+        </td>
+        <td>
+          <ul class="bul-list">
+            <li><em>Stérilité.</em></li>
+            <li><em>Régression des caractères sexuels secondaires.</em></li>
+            <li><em>Atrophie des caractères sexuels primaires : vésicules séminales, prostate, ...</em></li>
+          </ul>
+        </td>
+        <td>
+          Les testicules sont responsables de la fertilité, du développement du tractus génital et du maintien des caractères sexuels secondaires à l'âge adulte.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="exp-n">3)</span> On greffe un testicule sous la peau d'un castrat adulte
+          <div class="img-ph"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>image</div>
+        </td>
+        <td>
+          <ul class="bul-list">
+            <li><em>Toujours stérilité.</em></li>
+            <li><em>Restauration des C.S. primaires et secondaires.</em></li>
+          </ul>
+        </td>
+        <td>
+          Les testicules agissent sur les CSS à distance par voie sanguine : par des hormones
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="exp-n">4)</span> On injecte chaque jour à un castrat des extraits testiculaires.
+        </td>
+        <td>
+          <ul class="bul-list">
+            <li><em>Même résultats que l'expérience précédente.</em></li>
+          </ul>
+        </td>
+        <td>
+          Les extraits testiculaires contiennent des hormones mâles qui sont responsables du développement et du maintien des caractères sexuels.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="exp-n">5)</span> Injection de testostérone extraite du testicule
+          <div class="img-ph"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>image</div>
+        </td>
+        <td>
+          <ul class="bul-list">
+            <li><em>Restauration des caractères sexuels primaires et secondaires.</em></li>
+          </ul>
+        </td>
+        <td>
+          La testostérone est l'hormone testiculaire qui contrôle le développement des CSS et leur maintien.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="exp-n">6)</span> On irradie les testicules d'un rat adulte aux rayons X&nbsp;; destruction des tubes séminifères. Le tissu interstitiel est intact.
+        </td>
+        <td>
+          <ul class="bul-list">
+            <li><em>Stérilité</em></li>
+            <li><em>Maintien des CSII et du tractus génital.</em></li>
+          </ul>
+        </td>
+        <td>
+          Les cellules de Leydig interviennent dans le maintien des caractères sexuels secondaires et du tractus génital par la production de testostérone.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="fb">
+      <svg class="loops-sm" viewBox="0 0 40 24" style="color:var(--orange)"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      waeldocuments.com &nbsp;·&nbsp; +216 50 40 40 42
+    </span>
+    <span class="pn">9</span>
+  </div>
+</div>
+
+</body>
+</html>

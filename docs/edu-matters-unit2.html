@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaelDocuments — Education Matters · Unit 2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#fff; --panel:#fafafa; --hair:#e6e6e9; --hair2:#d6d6db;
+  --fg:#101012; --fg2:#52525b; --fg3:#8a8a93;
+  --blue:#1c9fd4; --blue-dark:#1683b3; --teal:#0fa3b1;
+  --orange:#f29200; --red:#e23b4e; --cream:#fbe9c8;
+  --blue-soft:#f4fafd; --blue-line:#d6ecf7;
+  --mono:'JetBrains Mono',monospace;
+  --latin:'Sora',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--latin);color:var(--fg);background:#e4e4e7;padding:28px 0;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+/* ── fixed A4 page ── */
+.page{width:210mm;height:297mm;background:var(--bg);margin:0 auto 26px;
+      padding:12mm 16mm 18mm;position:relative;overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.16);
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% -8%,rgba(0,0,0,.035),transparent 70%),
+        radial-gradient(rgba(0,0,0,.05) 1px,transparent 1px);
+      background-size:auto,22px 22px;background-position:center,0 0;}
+.page>*{position:relative;z-index:1;}
+
+/* ── watermark ── */
+.wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;
+    flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+.wm span{font-family:var(--mono);font-weight:700;font-size:33pt;letter-spacing:.14em;
+    color:var(--blue);opacity:.045;white-space:nowrap;text-align:center;}
+
+/* ── loops mark ── */
+.loops{width:26px;height:16px;flex:0 0 auto;color:var(--orange);}
+
+/* ── top bar ── */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;
+    border-bottom:2px solid var(--blue-line);font-family:var(--mono);font-size:8pt;
+    letter-spacing:.16em;text-transform:uppercase;margin-bottom:7mm;}
+.topbar .l{display:flex;align-items:center;gap:9px;color:var(--blue-dark);font-weight:800;}
+.topbar .r{color:var(--teal);font-weight:700;letter-spacing:.08em;}
+
+/* ── bullet list ── */
+.bullets{margin-bottom:6mm;}
+.bullet-item{position:relative;font-size:10.2pt;line-height:1.7;margin-bottom:3.5mm;
+    padding-left:16px;}
+.bullet-item::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;
+    border-radius:50%;background:var(--blue);}
+.bullet-item strong{font-weight:700;color:var(--fg);}
+.bullet-item .explain{color:var(--fg2);font-size:9.6pt;}
+
+/* ── transition / graph intro ── */
+.intro{background:var(--blue-soft);border:1px solid var(--blue-line);
+    border-left:4px solid var(--teal);border-radius:10px;padding:12px 16px;
+    margin-bottom:5mm;font-size:9.8pt;line-height:1.7;color:var(--fg2);}
+.intro .arr{color:var(--teal);font-weight:800;font-family:var(--mono);}
+.intro .graph-kw{color:var(--blue-dark);font-weight:800;font-family:var(--mono);letter-spacing:.04em;}
+.intro .kw-row{margin-top:8px;padding-top:8px;border-top:1px dashed var(--blue-line);
+    font-family:var(--mono);font-size:9pt;color:var(--fg3);
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.intro .kw-row .lbl{color:var(--fg2);}
+.intro .kw-row .pills{display:flex;gap:7px;}
+.intro .kw-row .pill{color:var(--fg);font-weight:700;background:#fff;border:1px solid var(--blue-line);
+    border-radius:6px;padding:2px 10px;}
+
+/* ── grammar rule ── */
+.grammar{background:#fff;border:1px solid var(--blue-line);border-left:4px solid var(--blue);
+    border-radius:10px;padding:11px 16px;margin-bottom:6mm;font-size:10.2pt;line-height:1.75;color:var(--fg);}
+.kw-if{color:var(--blue-dark);font-weight:700;}
+.kw-unlike{color:var(--orange);font-weight:700;}
+.kw-unless{color:var(--teal);font-weight:700;}
+.kw-eq{color:var(--red);font-weight:700;white-space:nowrap;}
+
+/* ── example label ── */
+.ex-label{font-family:var(--mono);font-size:8pt;font-weight:700;color:var(--red);
+    letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:9px;
+    margin:0 0 2.5mm;}
+.ex-label::after{content:"";flex:1;height:1px;background:var(--blue-line);}
+
+/* ── example box ── */
+.ex-box{background:var(--blue-soft);border:1px solid var(--blue-line);
+    border-left:4px solid var(--blue);border-radius:10px;padding:13px 16px;margin-bottom:6mm;}
+
+/* sentence + its translation as a paired unit */
+.pair{margin-bottom:4mm;}
+.pair:last-child{margin-bottom:0;}
+.pair .en{font-size:10.2pt;line-height:1.6;color:var(--fg);}
+.pair .tr{display:flex;gap:9px;margin-top:3px;padding-left:2px;
+    font-size:9pt;color:var(--fg3);line-height:1.55;}
+.pair .tr .ar{flex:0 0 auto;color:var(--teal);font-weight:700;font-family:var(--mono);font-size:8.5pt;line-height:1.7;}
+
+/* ── graph block ── */
+.graph-heading{display:flex;align-items:baseline;gap:10px;margin-bottom:7px;
+    padding-bottom:7px;border-bottom:1px dashed var(--blue-line);}
+.graph-heading .gkw{font-family:var(--mono);color:var(--blue-dark);font-weight:800;
+    text-transform:uppercase;letter-spacing:.06em;font-size:9.5pt;}
+.graph-heading .gref{color:var(--fg3);font-style:italic;font-size:8.5pt;}
+.graph-body{font-size:10.2pt;line-height:1.75;color:var(--fg);}
+.pct-highlight{color:var(--orange);font-weight:700;}
+
+/* ── footer ── */
+.footer{position:absolute;right:0;left:0;bottom:0;display:flex;align-items:center;
+    justify-content:space-between;padding:8px 16mm;
+    border-top:1px solid var(--blue-line);font-family:var(--mono);font-size:7.5pt;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);direction:ltr;}
+.footer .b{display:flex;align-items:center;gap:7px;color:var(--teal);}
+.footer .b .loops-f{width:18px;height:11px;color:var(--orange);}
+.footer .pn{background:var(--orange);color:#fff;width:26px;height:26px;border-radius:7px;
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:800;font-size:10.5pt;}
+
+/* ── screen toolbar ── */
+.toolbar{max-width:210mm;margin:0 auto 18px;display:flex;justify-content:flex-end;padding:0 4px;}
+.toolbar button{font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--blue-dark);color:#fff;border:none;padding:11px 22px;border-radius:8px;cursor:pointer;}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;margin:0;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">↓ Export PDF · A4</button></div>
+
+<div class="page">
+  <!-- watermark -->
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <!-- top bar -->
+  <div class="topbar">
+    <span class="l">
+      <svg class="loops" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+      </svg>
+      WaelDocuments
+    </span>
+    <span class="r">Education Matters &nbsp;·&nbsp; Unit 2</span>
+  </div>
+
+  <!-- ─── BULLET POINTS ─── -->
+  <div class="bullets">
+
+    <div class="bullet-item">
+      <strong>- No physical exercise or eye contact</strong> ;&nbsp;
+      <span class="explain">( famech 7araka 9a3ed dima 9odem l pc w matchouf had w lee had ychoufek ).</span>
+    </div>
+
+    <div class="bullet-item">
+      <strong>- Little verbal and physical communication</strong> ;&nbsp;
+      <span class="explain">( famech tawasol ) .</span>
+    </div>
+
+    <div class="bullet-item">
+      <strong>- No chance to learn how to handle the hustle and bustle and bulling in the society</strong> ;&nbsp;
+      <span class="explain">( maadekech forsa bech tel3alem kifech tetsaref m3a l fawdha w l hamajiyya w l3onf ).</span>
+    </div>
+
+    <div class="bullet-item">
+      <strong>- Isolation , loneliness , no human relationships</strong> ;&nbsp;
+      <span class="explain">Livre exclusif de la page éducative Wael Documents ( l we7da w maandekech 3ala9at m3a 3bed ) .</span>
+    </div>
+
+  </div>
+
+  <!-- ─── GRAPH INTRO ─── -->
+  <div class="intro">
+    <span class="arr">-----&gt;</span>&nbsp;
+    Bech nchoufou tawwa kifeh taamel <span class="graph-kw">GRAPH</span>
+    ( rasm bayani ) fih des pourcentages w enty ta9rahoma :
+    <div class="kw-row">
+      <span class="lbl">Fil graph nesta3mlou barcha</span>
+      <span class="pills"><span class="pill">if</span><span class="pill">unlike</span><span class="pill">Unless</span></span>
+    </div>
+  </div>
+
+  <!-- ─── GRAMMAR RULE ─── -->
+  <div class="grammar">
+    <span class="kw-if">If</span> hiyaa idha w
+    <span class="kw-unlike">unlike</span> hiyya mouch kif hakka l 7aja wella the place fiha mou9arna w
+    <span class="kw-unless">unless</span> <span class="kw-eq">= if + not</span>
+  </div>
+
+  <!-- ─── EXAMPLE 1 ─── -->
+  <span class="ex-label">Example :</span>
+  <div class="ex-box">
+    <div class="pair">
+      <div class="en"><span class="kw-if">If we don't</span> donate to UNICEF , children will not have a chance .</div>
+      <div class="tr"><span class="ar">----&gt;</span><span>Idha manetbar3ouch ll UNICEF , sghar mouch bech tkoun 3andhom forsa .</span></div>
+    </div>
+    <div class="pair">
+      <div class="en"><span class="kw-unless">Unless</span> we donate to UNICEF , children will not have a chance .</div>
+      <div class="tr"><span class="ar">----&gt;</span><span>Ella idha netbar3ou ll UNICEF , sghar mouch bech yal9aw forsa .</span></div>
+    </div>
+  </div>
+
+  <!-- ─── EXAMPLE 2 — GRAPH ─── -->
+  <span class="ex-label">Example :</span>
+  <div class="ex-box">
+    <div class="graph-heading">
+      <span class="gkw">GRAPH</span>
+      <span class="gref">( l graph elli bech nekhdem alih mawjoud fil cours )</span>
+    </div>
+    <p class="graph-body">
+      In this graph, we notice that South Asia suffers most from exclusion where there are
+      <span class="pct-highlight">36 %</span> of the children don't go to school .
+      This can be explained by the fact that people there are very poor and don't believe in education .
+    </p>
+  </div>
+
+  <!-- ─── FOOTER ─── -->
+  <div class="footer">
+    <span class="b">
+      <svg class="loops-f" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/>
+      </svg>
+      waeldocuments.com &nbsp;·&nbsp; +216 50 40 40 42 / +216 50 45 40 40
+    </span>
+    <span class="pn">39</span>
+  </div>
+</div>
+
+</body>
+</html>
