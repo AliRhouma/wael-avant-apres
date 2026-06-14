@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منهجية الاشتغال على التمارين والمقال الفلسفي</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+  :root{
+    --bg:#fff;--panel:#fafafa;--hair:#e6e6e9;--hair2:#d6d6db;
+    --fg:#101012;--fg2:#52525b;--fg3:#8a8a93;
+    --blue:#1c9fd4;--blue-dark:#1683b3;--teal:#0fa3b1;--orange:#f29200;--red:#e23b4e;--cream:#fbe9c8;
+    --blue-soft:#f4fafd;--blue-line:#d6ecf7;
+    --mono:'JetBrains Mono',monospace;--ar:'Cairo',sans-serif;--arb:'Tajawal',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--arb);color:var(--fg);background:#e4e4e7;padding:28px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .page{width:210mm;height:297mm;background:var(--bg);margin:0 auto 26px;padding:15mm 16mm 18mm;position:relative;overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.16);
+    background-image:radial-gradient(ellipse 60% 40% at 50% -8%, rgba(0,0,0,.035), transparent 70%),radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px);
+    background-size:auto, 22px 22px;background-position:center,0 0;}
+  .page > *{position:relative;z-index:1;}
+  .wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+  .wm span{font-family:var(--mono);font-weight:700;font-size:33pt;letter-spacing:.14em;color:var(--blue);opacity:.05;white-space:nowrap;text-align:center;}
+  .loops{width:26px;height:16px;color:var(--orange);flex:0 0 auto;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--blue-line);font-family:var(--mono);font-size:8pt;letter-spacing:.16em;color:var(--fg3);}
+  .topbar .l{display:flex;align-items:center;gap:9px;color:var(--blue-dark);font-weight:700;}
+  .topbar .r{font-family:var(--ar);font-weight:700;color:var(--teal);font-size:9.5pt;letter-spacing:0;}
+  .hero{padding:7mm 0 4mm;border-bottom:1px solid var(--blue-line);margin-bottom:4mm;position:relative;}
+  .hero .kick{font-family:var(--ar);font-weight:700;font-size:9pt;letter-spacing:.12em;color:var(--orange);margin-bottom:6px;}
+  .hero h1{font-family:var(--ar);font-size:22pt;font-weight:900;line-height:1.25;color:var(--blue-dark);padding-inline-end:76px;}
+  .hero .sub{font-family:var(--ar);font-weight:600;font-size:11pt;color:var(--teal);margin-top:8px;}
+  .seal{position:absolute;top:5mm;left:0;width:66px;height:66px;color:var(--blue);opacity:.82;}
+  .meta{display:flex;border:1px solid var(--blue-line);border-radius:8px;overflow:hidden;margin-bottom:5mm;}
+  .meta > div{flex:1;padding:7px 13px;border-inline-start:1px solid var(--blue-line);}
+  .meta > div:first-child{border-inline-start:none;}
+  .meta .k{font-family:var(--ar);font-size:8pt;font-weight:700;color:var(--teal);}
+  .meta .v{font-family:var(--ar);font-size:10.5pt;font-weight:700;margin-top:2px;}
+  .exh{display:flex;align-items:center;gap:11px;margin:5mm 0 3mm;}
+  .exh .idx{font-family:var(--ar);font-size:9.5pt;font-weight:800;color:#fff;background:var(--red);border-radius:7px;padding:4px 13px;}
+  .exh h2{font-family:var(--ar);font-size:15pt;font-weight:800;color:var(--blue-dark);}
+  .exh .pts{margin-inline-start:auto;font-family:var(--ar);font-size:9pt;font-weight:700;color:var(--orange);background:var(--cream);border-radius:20px;padding:4px 14px;}
+
+  /* method block */
+  .method{margin-bottom:5.5mm;}
+  .mhead{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+  .mhead .mn{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:var(--blue);color:#fff;font-family:var(--ar);font-weight:800;font-size:12pt;display:flex;align-items:center;justify-content:center;}
+  .mhead h3{font-family:var(--ar);font-weight:800;font-size:12.5pt;color:var(--blue-dark);background:var(--cream);padding:2px 12px;border-radius:7px;line-height:1.7;}
+  .mdef{font-size:10.4pt;line-height:1.85;color:var(--fg2);}
+  .mdef b{color:var(--fg);font-weight:700;}
+  .ex{background:var(--blue-soft);border:1px solid var(--blue-line);border-inline-start:4px solid var(--blue);border-radius:8px;padding:10px 15px;margin-top:7px;}
+  .ex .h{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;color:var(--orange);display:block;margin-bottom:6px;direction:ltr;text-align:start;}
+  .stmt{font-family:var(--ar);font-weight:700;color:var(--blue-dark);background:#fff;border:1px solid var(--blue-line);border-radius:8px;padding:5px 13px;display:inline-block;font-size:10.5pt;margin-bottom:6px;}
+  .ans{font-size:10.3pt;line-height:1.8;color:var(--fg2);}
+  .ans .lbl{font-family:var(--ar);font-weight:800;color:var(--teal);}
+  .aside{border:1px dashed var(--hair2);border-radius:8px;padding:8px 13px;margin-top:7px;background:var(--panel);}
+  .aside .h{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;color:var(--fg3);display:block;margin-bottom:4px;direction:ltr;text-align:start;}
+  .aside .at{font-size:9.6pt;line-height:1.8;color:var(--fg2);}
+
+  .footer{position:absolute;right:0;left:0;bottom:0;display:flex;align-items:center;justify-content:space-between;padding:8px 16mm;border-top:1px solid var(--blue-line);font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;color:var(--fg3);direction:ltr;}
+  .footer .b{display:flex;align-items:center;gap:7px;color:var(--teal);}
+  .footer .b .loops{width:18px;height:11px;color:var(--orange);}
+  .footer .pn{background:var(--orange);color:#fff;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--ar);font-weight:800;}
+  .cta{border:1.5px solid var(--orange);border-radius:14px;overflow:hidden;display:flex;margin-top:5mm;background:#fff;}
+  .cta .m{flex:1;padding:14px 18px;}
+  .cta .k{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;color:var(--orange);margin-bottom:5px;direction:ltr;text-align:start;}
+  .cta .t{font-family:var(--ar);font-weight:900;font-size:14pt;color:var(--blue-dark);}
+  .cta .d{font-size:9.5pt;color:var(--fg2);line-height:1.8;margin-top:5px;}
+  .cta .s{width:58mm;background:var(--cream);border-inline-start:1.5px solid #f1d496;padding:14px;display:flex;flex-direction:column;gap:10px;justify-content:center;align-items:center;}
+  .cta .btn{background:var(--orange);color:#fff;font-family:var(--ar);font-weight:800;font-size:10pt;padding:9px 16px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:8px;}
+  .cta .btn svg{width:14px;height:14px;}
+  .cta .ph{font-family:var(--mono);font-weight:600;font-size:8.5pt;color:#8a6a16;direction:ltr;}
+  .toolbar{max-width:210mm;margin:0 auto 18px;display:flex;justify-content:flex-start;padding:0 4px;}
+  .toolbar button{font-family:var(--ar);font-weight:800;font-size:10.5pt;background:var(--blue-dark);color:#fff;border:none;padding:11px 24px;border-radius:10px;cursor:pointer;}
+  @media print{ body{background:#fff;padding:0;} .toolbar{display:none;} .page{box-shadow:none;margin:0;page-break-after:always;} .page:last-child{page-break-after:auto;} }
+  @page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">↓ تصدير PDF · A4</button></div>
+
+<!-- ===== PAGE 1 ===== -->
+<div class="page">
+  <div class="wm"><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span></div>
+  <div class="topbar"><span class="l"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> WaelDocuments</span><span class="r">المنهجي · الفلسفة</span></div>
+
+  <div class="hero">
+    <svg class="seal" viewBox="0 0 100 100"><defs><path id="ring" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs><circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="50" cy="50" r="31" fill="none" stroke="currentColor" stroke-width="0.8"/><text font-family="'JetBrains Mono',monospace" font-size="7.3" letter-spacing="1.6" fill="currentColor"><textPath href="#ring" startOffset="2%">WAELDOCUMENTS.COM · CONTENU EXCLUSIF ·</textPath></text><circle cx="43" cy="51" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="57" cy="51" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    <div class="kick">المنهجي · الفلسفة</div>
+    <h1>منهجية الاشتغال على التمارين والمقال الفلسفي</h1>
+    <div class="sub">(الأمثلة في علاقة بالمحور الأول)</div>
+  </div>
+
+  <div class="meta">
+    <div><div class="k">المادة</div><div class="v">الفلسفة</div></div>
+    <div><div class="k">القسم</div><div class="v">المنهجية</div></div>
+    <div><div class="k">المحور</div><div class="v">الأول</div></div>
+    <div><div class="k">العدد</div><div class="v">٦ نقاط</div></div>
+  </div>
+
+  <div class="exh"><span class="idx">١) التمارين</span><h2>التمارين</h2><span class="pts">٤ نقاط</span></div>
+
+  <div class="method">
+    <div class="mhead"><span class="mn">١</span><h3>حدّد الضمنيات / المسلّمات الضمنية / المفترضات</h3></div>
+    <p class="mdef">تفيد المسلّمة الضمنية الموقفَ غير المعلن والمتضمَّن في القول: ما يسلّم به القول أو الموقف ضمنيًا، أي يُبنى عليه ويقيِّده دون أن يعلن عن ذلك بصراحة.</p>
+    <div class="ex">
+      <span class="h">// مثال</span>
+      <span class="stmt">«إنّ الأنا مشروع»</span>
+      <p class="ans"><span class="lbl">المسلّمة الضمنية:</span> لا تتحدّد الأنا بوصفها طبيعةً معطاةً ما قبليًّا، بل تتحدّد ماهيتها ما بعديًّا (معناها أنّ الأنا تتحدّد بذاتها وبفعلها لا قبل ذلك).</p>
+    </div>
+  </div>
+
+  <div class="method">
+    <div class="mhead"><span class="mn">٢</span><h3>الكشف عن تبعات أو إحراجات قول ما</h3></div>
+    <p class="mdef">التبعة هي موقف ينتج بالضرورة عن الأطروحة المتضمَّنة في القول، هي ما يترتّب عن الموقف المعلن؛ وتكون <b>عمليّة</b> أي تتعلّق بمجال الممارسة الإنسانية العملية أو القيمية، أو <b>نظريّة</b> أي تتعلّق بكلّ ما هو معرفيٌّ أو فكريّ.</p>
+    <div class="ex">
+      <span class="h">// مثال</span>
+      <span class="stmt">«إنّ الجسد إحساس بالهوية»</span>
+      <p class="ans"><span class="lbl">التبعة:</span> الآنية ليست تجريدًا، وإنّما هي تجسيدٌ وتعيينٌ حسّيٌّ بجعلها في خضمّ الصيرورة والتحوّل.</p>
+    </div>
+    <div class="aside">
+      <span class="h">// توضيح بالدارجة</span>
+      <p class="at">(باش تطلّع التبعات لازمك ديما تسأل شنوّا الحقيقة الّي يعتمد عليها القول هنا، شنوّا الركيزة متاعو والّي من غيرها يولّي القول ما عندوش معنى وغالط؛ باش تطلّعو لازمك ترجع بالقولة لتالي، تقعد تسأل في روحك: الحاجة هاذي علاش ثبتات، على أنا … قول تعتمد.)</p>
+    </div>
+  </div>
+
+  <div class="footer"><span class="b"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> waeldocuments.com</span><span class="pn">١</span></div>
+</div>
+
+<!-- ===== PAGE 2 ===== -->
+<div class="page">
+  <div class="wm"><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span></div>
+  <div class="topbar"><span class="l"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> WaelDocuments</span><span class="r">المنهجي · الفلسفة</span></div>
+
+  <div class="method" style="margin-top:4mm;">
+    <div class="mhead"><span class="mn">٣</span><h3>الكشف عن رهانات قول ما</h3></div>
+    <p class="mdef">الرهان هو الغاية والهدف المراد تحقيقه من خلال القول المطروح؛ ذلك أنّ القول لا يكون اعتباطيًّا أو هامشيًّا، وإنّما كلُّ قولٍ يقصد تحقيق رهانٍ محدّد، أي موقفٍ نظريٍّ أو عمليٍّ نظرًا لأهميته.</p>
+    <div class="ex">
+      <span class="h">// مثال</span>
+      <span class="stmt">«الغير هو الوسيط الذي لا غنى عنه بيني وبين نفسي»</span>
+      <p class="ans"><span class="lbl">الرهان:</span> القطع مع انثناء الأنا أو تقوقعها أو انغلاقها على ذاتها، أي مع فضاء الذاتيّة المنغلق، والانفتاحُ على الآخر في فضاء البَيْنذاتيّة حتى يكتمل وعيها بذاتها.</p>
+    </div>
+    <div class="aside">
+      <span class="h">// توضيح بالدارجة</span>
+      <p class="at">(الرهانات ديما تكون حاجة إيجابية؛ مثلًا معاهدةٌ ما بعد الحرب العالمية، لولا رهانها هل أنّو تحقّق السلم، رغم أنّو الّي عملوه بالحقيقة هو أنّهم قسّمو إفريقيا بين بعضهم.)</p>
+    </div>
+  </div>
+
+  <div class="method">
+    <div class="mhead"><span class="mn">٤</span><h3>تحديد مفهوم أو دلالة في سياق قول محدّد</h3></div>
+    <p class="mdef">تحديد السياق الذي يتنزّل فيه القول، ثمّ ضبط معناه بالاعتماد على مكاسب الدرس.</p>
+    <div class="ex">
+      <span class="h">// مثال</span>
+      <span class="stmt">«إنّ معرفة الذات تتحقّق عبر الآخر»  —  حدّد مفهوم الآخر في سياق هذا القول</span>
+      <p class="ans"><span class="lbl">المفهوم:</span> هو شرط معرفة الذات بذاتها، وبوصفه العالَم أو ذاتًا أخرى أو اللاوعي أو الجسد أو التاريخ، أو بوصفه المُكمِّل للذات في رحم الاختلاف الذي يكشف لها حقيقتها.</p>
+    </div>
+  </div>
+
+  <div class="footer"><span class="b"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> waeldocuments.com</span><span class="pn">٢</span></div>
+</div>
+
+<!-- ===== PAGE 3 ===== -->
+<div class="page">
+  <div class="wm"><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span></div>
+  <div class="topbar"><span class="l"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> WaelDocuments</span><span class="r">المنهجي · الفلسفة</span></div>
+
+  <div class="method" style="margin-top:4mm;">
+    <div class="mhead"><span class="mn">٥</span><h3>ما مدى راهنية أو حضور أو ملاءمة القول</h3></div>
+    <p class="mdef">يُطلب منّا فحص مدى حضور تلك الفكرة في عصرنا اليوم وواقعنا الحاضر.</p>
+    <div class="ex">
+      <span class="h">// مثال</span>
+      <span class="stmt">«الجسد عائق»</span>
+      <p class="ans"><span class="lbl">الراهنية:</span> اعتبار الجسد عائقًا هو موقف يعبّر عن احتقار الجسد وتهميشه؛ غير أنّ الراهن اليوم هو أنّ الجسد المُمجَّد يُنظر إليه كجوهرٍ إنسانيّ وليس مجرّد أداة. / أو في علاقةٍ بواقعٍ راهن، فإنّ الجسد حقًّا يمثّل حاجزًا، نظرًا لإثبات الإشهار الذي بات يستعمل الجسد لأغراضٍ اقتصاديةٍ نفعيّة.</p>
+    </div>
+  </div>
+
+  <div class="method">
+    <div class="mhead"><span class="mn">٦</span><h3>قدّم حجّةً تدحض أو تدعم القول</h3></div>
+    <p class="mdef">الاستدلال على القولة أو الاعتراض عليها بحجّةٍ منطقية، أو حجّة دحض، أو حجّة بالخُلْف.</p>
+    <div class="ex">
+      <span class="h">// مثال ١</span>
+      <span class="stmt">«إنّني أنا ما أنا بالوعي وحده»  —  ادحض هذا القول</span>
+      <p class="ans"><span class="lbl">الحجّة:</span> أنّ هذا الموقف يعزل الذات عن شروط وجودها، بأن يجعلها ذاتًا مستقلّة عن الأشياء والعالَم والتاريخ، أو عقيمة.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="m">
+      <div class="k">// متوفّر في نسخة ورقية</div>
+      <div class="t">كتب الامتحانات السابقة · 2009 → 2025</div>
+      <div class="d">مواضيع وإصلاح رسمي للوزارة في جميع المواد، بأسعار مناسبة. اطلبها الآن من صفحتنا على فيسبوك.</div>
+    </div>
+    <div class="s">
+      <a class="btn" href="https://facebook.com/WaelDocuments"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5H17V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H8v3h2.5v8h3z"/></svg> اطلب الآن</a>
+      <div class="ph">+216 50 40 40 42</div>
+    </div>
+  </div>
+
+  <div class="footer"><span class="b"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> waeldocuments.com · +216 50 45 40 40</span><span class="pn">٣</span></div>
+</div>
+</body>
+</html>

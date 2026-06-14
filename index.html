@@ -49,6 +49,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);padding
 .pane .dlbtn{font-family:'JetBrains Mono',monospace;font-size:8.5pt;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:9px 18px;border-radius:9px;border:0;background:var(--blue);color:#fff;cursor:pointer;box-shadow:0 4px 12px rgba(28,159,212,.35);transition:.15s;}
 .pane .dlbtn:hover{background:var(--blue-dark);box-shadow:0 6px 16px rgba(28,159,212,.45);}
 .pane .dlbtn:active{transform:translateY(1px);}
+.card[dir=rtl] .tab,.card[dir=rtl] .dlbtn{font-family:'Cairo',sans-serif;letter-spacing:0;text-transform:none;font-weight:700;}
 .pane.before img{filter:saturate(.96);}
 .lab{position:absolute;top:10px;inset-inline-start:12px;font-family:'JetBrains Mono',monospace;font-size:7.5pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:6px;}
 .card[dir=rtl] .lab{font-family:'Cairo',sans-serif;letter-spacing:0;text-transform:none;font-weight:700;}
@@ -130,7 +131,22 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);padding
         <div class="compare">
           <div class="pane before"><span class="lab b">قبل</span><img src="" alt="منهجية الاشتغال — قبل"></div>
           <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-          <div class="pane after"><span class="lab a">بعد</span><img src="" alt="منهجية الاشتغال — بعد"></div>
+          <div class="pane after"><span class="lab a">بعد</span>
+            <div class="docpane">
+              <div class="tabs">
+                <button type="button" class="tab active" data-target="mh4-p1">صفحة واحدة</button>
+                <button type="button" class="tab" data-target="mh4-p2">نسخة موسّعة</button>
+              </div>
+              <div class="docpanel" id="mh4-p1">
+                <div class="docwrap"><iframe class="doc" id="mh4-frame1" src="docs/manhajiyya-1page.html" title="معاينة صفحة واحدة" scrolling="yes" loading="lazy"></iframe></div>
+                <button type="button" class="dlbtn" data-frame="mh4-frame1">↓ تحميل PDF · A4</button>
+              </div>
+              <div class="docpanel" id="mh4-p2" hidden>
+                <div class="docwrap"><iframe class="doc" id="mh4-frame2" src="docs/manhajiyya-tamarin.html" title="النسخة الموسّعة" scrolling="yes" loading="lazy"></iframe></div>
+                <button type="button" class="dlbtn" data-frame="mh4-frame2">↓ تحميل PDF · A4</button>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
   <div class="foot"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> WAELDOCUMENTS.COM · CONTENU EXCLUSIF</div>
