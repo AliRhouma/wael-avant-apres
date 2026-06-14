@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>WaelDocuments — Devoir de Synthèse N°1 — Sciences Physiques</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  chtml: { fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2', matchFontHeight: true },
+  startup: { typeset: true }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#fff;--panel:#fafafa;--hair:#e6e6e9;--hair2:#d6d6db;
+  --fg:#101012;--fg2:#52525b;--fg3:#8a8a93;
+  --blue:#1c9fd4;--blue-dark:#1683b3;--teal:#0fa3b1;
+  --orange:#f29200;--red:#e23b4e;--cream:#fbe9c8;
+  --blue-soft:#f4fafd;--blue-line:#d6ecf7;
+  --mono:'JetBrains Mono',monospace;
+  --latin:'Sora',sans-serif;
+  --ar:'Cairo',sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--latin);color:var(--fg);background:#e4e4e7;padding:24px 0;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+/* ── Fixed A4 page — compact paddings for single-page fit ── */
+.page{
+  width:210mm;height:297mm;background:var(--bg);margin:0 auto 24px;
+  padding:8mm 12mm 12mm;position:relative;overflow:hidden;
+  box-shadow:0 8px 36px rgba(0,0,0,.15);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 50% -8%,rgba(0,0,0,.03),transparent 70%),
+    radial-gradient(rgba(0,0,0,.045) 1px,transparent 1px);
+  background-size:auto,22px 22px;background-position:center,0 0;
+}
+.page>*{position:relative;z-index:1;}
+
+/* Watermark */
+.wm{position:absolute;inset:-25%;z-index:0;pointer-events:none;display:flex;
+    flex-direction:column;justify-content:space-between;transform:rotate(-30deg);}
+.wm span{font-family:var(--mono);font-weight:700;font-size:28pt;letter-spacing:.14em;
+    color:var(--blue);opacity:.04;white-space:nowrap;text-align:center;}
+
+/* Loops mark */
+.loops{flex:0 0 auto;}
+
+/* ── Top bar ── */
+.topbar{display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:5px;border-bottom:1.5px solid var(--blue-line);margin-bottom:2.5mm;
+    font-family:var(--mono);font-size:7.5pt;letter-spacing:.14em;color:var(--fg3);text-transform:uppercase;}
+.topbar .l{display:flex;align-items:center;gap:8px;color:var(--blue-dark);font-weight:700;}
+.topbar .r{color:var(--teal);font-weight:700;}
+
+/* ── School header ── */
+.sch{display:grid;grid-template-columns:auto 1fr auto;gap:3px 10px;align-items:center;
+    border:1.5px solid var(--blue-line);border-radius:8px;padding:5px 11px;margin-bottom:2.5mm;
+    background:var(--blue-soft);}
+.sch-l{font-family:var(--mono);font-size:7.5pt;font-weight:700;color:var(--blue-dark);text-align:center;line-height:1.55;}
+.sch-c{text-align:center;}
+.sch-c .title{font-family:var(--latin);font-size:15pt;font-weight:800;color:var(--blue-dark);letter-spacing:-.01em;line-height:1;}
+.sch-c .mat{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);margin-top:2px;}
+.sch-c .profs{font-family:var(--latin);font-size:7pt;color:var(--fg2);margin-top:2px;border-top:1px solid var(--blue-line);padding-top:2px;}
+.sch-r{font-family:var(--mono);font-size:7pt;text-align:right;line-height:1.65;color:var(--fg2);}
+.sch-r b{color:var(--blue-dark);}
+
+/* ── Exercise header ── */
+.exh{display:flex;align-items:center;gap:8px;margin:2mm 0 1.2mm;}
+.exh .idx{font-family:var(--mono);font-size:7.5pt;font-weight:700;color:#fff;
+    background:var(--red);border-radius:5px;padding:2px 9px;letter-spacing:.06em;text-transform:uppercase;}
+.exh h2{font-family:var(--latin);font-size:10pt;font-weight:700;color:var(--blue-dark);}
+.exh .pts{margin-left:auto;font-family:var(--mono);font-size:7.5pt;font-weight:700;
+    color:var(--orange);background:var(--cream);border-radius:20px;padding:2px 9px;}
+
+/* ── Part header (I/, II/) ── */
+.ph{font-family:var(--mono);font-size:8pt;font-weight:700;color:var(--blue-dark);
+    margin:1.5mm 0 1mm;padding-bottom:2px;border-bottom:1px solid var(--blue-line);}
+
+/* ── Data / lead callout ── */
+.data{background:var(--blue-soft);border:1px solid var(--blue-line);border-left:3.5px solid var(--blue);
+    border-radius:7px;padding:5px 11px;margin-bottom:1.5mm;font-size:7.8pt;line-height:1.38;color:var(--fg2);}
+.data b{color:var(--fg);font-weight:700;}
+.kicker{font-family:var(--mono);font-size:6.5pt;letter-spacing:.18em;color:var(--orange);display:block;margin-bottom:3px;}
+
+/* ── Numbered questions with blue circles ── */
+ol.q{list-style:none;counter-reset:q;margin-bottom:0;}
+ol.q>li{counter-increment:q;position:relative;padding-left:22px;margin-bottom:1.2mm;font-size:7.8pt;line-height:1.38;}
+ol.q>li::before{content:counter(q);position:absolute;left:0;top:1px;width:16px;height:16px;
+    background:var(--blue);color:#fff;border-radius:50%;font-family:var(--mono);font-size:7pt;font-weight:700;
+    display:flex;align-items:center;justify-content:center;}
+
+/* ── Sub-list (a, b, c) ── */
+ol.sub{list-style:none;counter-reset:s;margin:2px 0 1px;padding-left:3px;border-left:2px solid var(--blue-line);}
+ol.sub li{counter-increment:s;position:relative;padding:1px 0 1px 20px;font-size:7.6pt;line-height:1.38;}
+ol.sub li::before{content:counter(s,lower-alpha)".";position:absolute;left:5px;top:1px;
+    font-family:var(--mono);font-size:7pt;font-weight:600;color:var(--teal);}
+
+/* ── Centered equation display ── */
+.eqd{text-align:center;margin:1.2mm 0;font-size:9pt;font-weight:700;color:var(--blue-dark);letter-spacing:.02em;}
+
+/* ── Footer ── */
+.footer{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;
+    padding:5px 12mm;border-top:1px solid var(--blue-line);
+    font-family:var(--mono);font-size:6.8pt;letter-spacing:.08em;text-transform:uppercase;color:var(--fg3);}
+.footer .b{display:flex;align-items:center;gap:5px;color:var(--teal);}
+.footer .pn{background:var(--orange);color:#fff;width:20px;height:20px;border-radius:5px;
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:8.5pt;}
+
+mjx-container{color:var(--fg)!important;font-weight:400!important;font-size:1.0em!important;}
+
+/* Print button */
+.toolbar{max-width:210mm;margin:0 auto 14px;display:flex;justify-content:flex-end;padding:0 4px;}
+.toolbar button{font-family:var(--mono);font-weight:600;font-size:8pt;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--blue-dark);color:#fff;border:none;padding:9px 18px;border-radius:7px;cursor:pointer;}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{box-shadow:none;margin:0;}
+}
+@page{size:A4;margin:0;}
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">↓ Export PDF · A4</button></div>
+
+<div class="page">
+  <!-- Watermark -->
+  <div class="wm">
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+    <span>WAELDOCUMENTS.COM</span><span>WAELDOCUMENTS.COM</span>
+  </div>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <span class="l">
+      <svg class="loops" width="22" height="14" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+      </svg>
+      WaelDocuments
+    </span>
+    <span class="r">Sciences Physiques · Devoirs de synthèse N°1</span>
+  </div>
+
+  <!-- SCHOOL HEADER -->
+  <div class="sch">
+    <div class="sch-l">
+      <div style="font-size:8.5pt;font-weight:800;">LYCÉE PILOT</div>
+      <div style="font-size:9pt;color:var(--blue);font-weight:800;">SFAX</div>
+      <div style="font-size:6.5pt;color:var(--fg3);">4<sup>ème</sup></div>
+    </div>
+    <div class="sch-c">
+      <div class="title">DEVOIR DE SYTHESE</div>
+      <div class="mat">Matière : Sciences Physiques &nbsp;·&nbsp; Chimie (7 points)</div>
+      <div class="profs">Professeurs : M<sup>r</sup> Abdelmoula – Ammar – Boussarsar – Cheffi – Kassis</div>
+    </div>
+    <div class="sch-r">
+      <div><b>Année :</b> 2016–2017 &nbsp;|&nbsp; <b>Sem. :</b> 1<sup>er</sup></div>
+      <div><b>Durée :</b> 3h &nbsp;|&nbsp; <b>Date :</b> 29/12/2016</div>
+      <div><b>Classes :</b> 4<sup>ème</sup> Math</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ EXERCICE N°1 ═══════════════════ -->
+  <div class="exh">
+    <span class="idx">Ex 1</span>
+    <h2>Hydrolyse de l'éthanoate de méthyle</h2>
+    <span class="pts">3,75 PTS</span>
+  </div>
+
+  <!-- Données + Figure 1 side-by-side -->
+  <div style="display:flex;gap:6px;margin-bottom:1.5mm;">
+    <div class="data" style="flex:1;margin-bottom:0;">
+      <span class="kicker">// Données</span>
+      <b>M(C)=12 g.mol⁻¹ ; M(H)=1 g.mol⁻¹ ; M(O)=16 g.mol⁻¹ ;</b>
+      La masse volumique de l'éthanoate de méthyle est <b>ρ = 0,925 g.cm⁻³</b>.<br>
+      On réalise un mélange <b>(M)</b> dans un bécher placé dans de la glace, formé de
+      <i>n</i><sub>1</sub> mol d'éthanoate de méthyle CH<sub>3</sub>COOCH<sub>3</sub>
+      et <i>n</i><sub>2</sub> mol d'eau avec <i>n</i><sub>2</sub> = 2,5<i>n</i><sub>1</sub>
+      et quelques gouttes d'acide sulfurique concentré.<br>
+      On divise le mélange <b>(M)</b> en 10 volumes égaux, dans des tubes à essais.
+      À <i>t</i><sub>0</sub>=0, on place tous les tubes dans un bain-marie maintenu à une
+      température constante. On suit l'évolution du système en dosant l'acide formé dans
+      les différents tubes dégagés du bain-marie à des instants convenablement choisis par
+      une solution aqueuse d'hydroxyde de sodium (soude) de concentration molaire
+      <b>C<sub>B</sub>=2,5 mol.L⁻¹</b>.<br>
+      Les résultats ont permis de tracer la courbe représentant l'évolution au cours du
+      temps de la quantité de matière d'ester dans le mélange <i>(voir figure 1)</i>.
+    </div>
+
+    <!-- FIGURE 1 — kinetics curve -->
+    <div style="flex:0 0 auto;border:1px solid var(--blue-line);border-radius:8px;
+                padding:4px 5px 3px;background:#fff;display:flex;flex-direction:column;
+                align-items:center;min-width:116px;">
+      <div style="font-family:var(--mono);font-size:5.5pt;color:var(--teal);letter-spacing:.1em;
+                  text-transform:uppercase;margin-bottom:1px;">figure 1</div>
+      <svg viewBox="0 0 116 92" fill="none" style="width:114px;height:90px;">
+        <!-- Axes -->
+        <line x1="23" y1="5" x2="23" y2="76" stroke="var(--blue-dark)" stroke-width="1.4"/>
+        <line x1="23" y1="76" x2="109" y2="76" stroke="var(--blue-dark)" stroke-width="1.4"/>
+        <!-- Arrow tips -->
+        <polygon points="23,4 20,10 26,10" fill="var(--blue-dark)"/>
+        <polygon points="110,76 104,73 104,79" fill="var(--blue-dark)"/>
+        <!-- Y-axis label -->
+        <text x="12" y="6" font-family="Sora,sans-serif" font-size="6.5" fill="var(--blue-dark)"
+              text-anchor="middle" font-style="italic">n(ester)</text>
+        <!-- n₁ tick + label -->
+        <line x1="19" y1="14" x2="25" y2="14" stroke="var(--blue-dark)" stroke-width="1"/>
+        <text x="17" y="17.5" font-size="7" fill="var(--fg2)" text-anchor="end"
+              font-family="Sora,sans-serif" font-style="italic">n₁</text>
+        <!-- n₁/2 tick + label + dashed line -->
+        <line x1="19" y1="56" x2="25" y2="56" stroke="var(--blue-dark)" stroke-width="1"/>
+        <text x="17" y="59.5" font-size="6.5" fill="var(--fg2)" text-anchor="end"
+              font-family="Sora,sans-serif" font-style="italic">n₁/2</text>
+        <line x1="23" y1="56" x2="105" y2="56" stroke="var(--fg3)" stroke-width="0.7"
+              stroke-dasharray="3,2"/>
+        <!-- X ticks + labels -->
+        <text x="23" y="85" font-size="6" fill="var(--fg2)" text-anchor="middle"
+              font-family="JetBrains Mono,monospace">0</text>
+        <line x1="35" y1="74" x2="35" y2="78" stroke="var(--blue-dark)" stroke-width="1"/>
+        <text x="35" y="85" font-size="6" fill="var(--fg2)" text-anchor="middle"
+              font-family="JetBrains Mono,monospace">10</text>
+        <line x1="105" y1="74" x2="105" y2="78" stroke="var(--blue-dark)" stroke-width="1"/>
+        <text x="105" y="85" font-size="6" fill="var(--fg2)" text-anchor="middle"
+              font-family="JetBrains Mono,monospace">70</text>
+        <!-- t(min) axis end label -->
+        <text x="104" y="75" font-size="5.5" fill="var(--blue-dark)"
+              font-family="JetBrains Mono,monospace" font-style="italic">t(min)</text>
+        <!-- Kinetics curve: n₁ → n₁/2 exponential decay type -->
+        <path d="M 23,14 C 32,15 40,35 58,47 C 76,55 92,57 105,57"
+              stroke="var(--teal)" fill="none" stroke-width="1.8"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Questions 1°) 2°) 3°) -->
+  <ol class="q">
+    <li>
+      <ol class="sub">
+        <li>En utilisant les formules semi-développées, écrire l'équation de la réaction
+            d'hydrolyse qui se produit.</li>
+        <li>Pour quelle raison le bécher est-il placé dans de la glace ?</li>
+        <li>À partir de la courbe, préciser en le justifiant, les caractères de la réaction
+            mis en évidence.</li>
+      </ol>
+    </li>
+    <li>
+      <ol class="sub">
+        <li>Dresser le tableau descriptif d'évolution du système dans le mélange <b>(M)</b>.</li>
+        <li>Calculer le taux d'avancement final <i>τ<sub>f</sub></i> de la réaction.</li>
+        <li>Vérifier que <b>K = 0,25</b>.</li>
+      </ol>
+    </li>
+    <li>Le contenu d'un tube à essai dosé à <i>t</i><sub>1</sub> = 70 min, en présence de
+      quelques gouttes de phénolphtaléine prend la coloration rose lorsque le volume de la
+      solution de soude ajouté est <b>V<sub>B</sub> = 20 mL</b>.
+      <ol class="sub">
+        <li>Préciser le rôle du phénolphtaléine.</li>
+        <li>Montrer que <i>n</i><sub>1</sub> = 1 mol.</li>
+        <li>Déduire la composition du mélange <b>(M)</b>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <!-- ═══════════════════ EXERCICE N°2 ═══════════════════ -->
+  <div class="exh" style="margin-top:2mm;">
+    <span class="idx">Ex 2</span>
+    <h2>Complexes du cobalt &amp; Synthèse de l'ammoniac</h2>
+    <span class="pts">3,25 PTS</span>
+  </div>
+
+  <!-- ── Partie I ── -->
+  <div class="ph">I/ Complexes du cobalt</div>
+
+  <div class="data" style="margin-bottom:1.2mm;">
+    En solution aqueuse les ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>
+    réagissent avec l'ammoniac NH<sub>3</sub> pour donner les ions
+    Co(NH<sub>3</sub>)<sub>6</sub><sup>2+</sup> selon l'équation :
+    <div class="eqd">
+      Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>&nbsp;+&nbsp;NH<sub>3</sub>
+      &nbsp;⇌&nbsp;
+      Co(NH<sub>3</sub>)<sub>6</sub><sup>2+</sup>
+    </div>
+    La constante d'équilibre relative à cette réaction est <b>K = 10</b> à une température T.
+  </div>
+
+  <ol class="q">
+    <li>À <i>t</i> = 0 et à la température T, on mélange :
+      <b>4.10⁻² mol</b> d'ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>
+      avec <b>4.10⁻² mol</b> de NH<sub>3</sub>.
+      On obtient une solution de volume <b>V = 200 mL</b>.
+      Donner l'expression de la fonction des concentrations en fonction de l'avancement <i>x</i>.
+    </li>
+    <li>Sachant qu'à <i>t</i> = <i>t</i><sub>1</sub> le nombre de moles de NH<sub>3</sub>
+      est égal 3 fois le nombre de moles d'ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>.
+      <ol class="sub">
+        <li>Le système est-il en état d'équilibre chimique à l'instant de date <i>t</i><sub>1</sub> ?</li>
+        <li>Déterminer la quantité de matière de l'ammoniac à l'équilibre chimique.</li>
+      </ol>
+    </li>
+    <li>Au mélange obtenu à l'équilibre on ajoute, sans variation de volume à la température T,
+      <b>1,5.10⁻³ mol</b> d'ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>.
+      <ol class="sub">
+        <li>Comment varie le nombre de moles d'ions Co(NH<sub>3</sub>)<sub>5</sub><sup>2+</sup>
+            dans ce mélange ? Justifier.</li>
+        <li>Déterminer la nouvelle valeur du taux d'avancement final de la réaction.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <!-- ── Partie II ── -->
+  <div class="ph">II/ Synthèse de l'ammoniac</div>
+
+  <div class="data" style="margin-bottom:1.2mm;">
+    La quantité d'ammoniac initialement introduite provient de la réaction de synthèse de
+    l'ammoniac qui est symbolisée par :
+    <div class="eqd">
+      N<sub>2(g)</sub>&nbsp;+&nbsp;3H<sub>2(g)</sub>
+      &nbsp;⇌&nbsp;
+      2NH<sub>3(g)</sub>&nbsp;+&nbsp;chaleur
+    </div>
+  </div>
+
+  <ol class="q">
+    <li>L'ammoniac est très soluble dans l'eau mais le pourcentage moléculaire dans la solution
+      ne peut pas être de 80%. Calculer la quantité d'ammoniac que doit produire la réaction
+      de synthèse.
+    </li>
+    <li>Pour réaliser la synthèse de l'ammoniac, on part d'un mélange contenant
+      <b>0,1 mol</b> de N<sub>2</sub> et <b>0,18 mol</b> de H<sub>2</sub>,
+      sachant que le taux d'avancement final de la réaction est <b>τ<sub>1</sub> = 0,5</b>.
+      Montrer que la quantité d'ammoniac formée à la fin de la réaction n'est pas celle qui
+      doit être produite.
+    </li>
+  </ol>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span class="b">
+      <svg class="loops" width="15" height="9" viewBox="0 0 40 24">
+        <circle cx="13" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+        <circle cx="27" cy="12" r="9" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+      </svg>
+      waeldocuments.com · +216 50 40 40 42 / +216 50 45 40 40
+    </span>
+    <span class="pn">80</span>
+  </div>
+</div>
+</body>
+</html>

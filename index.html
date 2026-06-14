@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wael Design System — Avant / Après</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Cairo:wght@600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap');
+:root{--bg:#f4f5f7;--ink:#101012;--ink2:#52525b;--ink3:#8a8a93;--hair:#e6e6e9;
+--blue:#1c9fd4;--blue-dark:#1683b3;--teal:#0fa3b1;--orange:#f29200;--red:#e23b4e;--cream:#fbe9c8;--blue-soft:#f4fafd;--blue-line:#d6ecf7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);padding:34px 22px 60px;}
+.wrap{max-width:1120px;margin:0 auto;}
+.hero{background:#fff;border:1px solid var(--hair);border-radius:20px;padding:34px 36px;position:relative;overflow:hidden;
+  background-image:radial-gradient(ellipse 50% 60% at 88% -20%, rgba(28,159,212,.10), transparent 70%),radial-gradient(rgba(0,0,0,.05) 1px,transparent 1px);
+  background-size:auto,22px 22px;}
+.hero .loops{width:40px;height:24px;color:var(--orange);}
+.hero .kick{font-family:'JetBrains Mono',monospace;font-size:9.5pt;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin:14px 0 8px;}
+.hero h1{font-size:33pt;font-weight:800;letter-spacing:-.02em;line-height:1.04;color:var(--blue-dark);}
+.hero h1 .ar{font-family:'Cairo',sans-serif;font-weight:900;color:var(--ink);}
+.hero p{color:var(--ink2);font-size:12.5pt;margin-top:12px;max-width:680px;line-height:1.6;}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+.stats span{font-family:'JetBrains Mono',monospace;font-size:8.5pt;font-weight:600;letter-spacing:.05em;
+  background:var(--blue-soft);border:1px solid var(--blue-line);color:var(--blue-dark);padding:7px 13px;border-radius:999px;}
+.card{background:#fff;border:1px solid var(--hair);border-radius:20px;padding:22px 24px;margin-top:24px;}
+.chead{display:flex;align-items:center;gap:15px;padding-bottom:16px;border-bottom:1px solid var(--hair);margin-bottom:18px;}
+.card[dir=rtl] .chead{flex-direction:row-reverse;text-align:right;}
+.ci{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13pt;color:#fff;background:var(--blue-dark);
+  width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.ct h3{font-size:16pt;font-weight:800;color:var(--ink);}
+.card[dir=rtl] .ct h3{font-family:'Cairo',sans-serif;font-weight:900;color:var(--blue-dark);}
+.ct p{color:var(--ink3);font-size:10.5pt;margin-top:2px;}
+.card[dir=rtl] .ct p{font-family:'Cairo',sans-serif;}
+.ctags{margin-inline-start:auto;display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.card[dir=rtl] .ctags{align-items:flex-start;}
+.subj{font-weight:700;font-size:9.5pt;color:#fff;background:var(--red);padding:4px 13px;border-radius:7px;}
+.card[dir=rtl] .subj{font-family:'Cairo',sans-serif;}
+.meta{font-family:'JetBrains Mono',monospace;font-size:7.5pt;letter-spacing:.06em;color:var(--ink3);}
+.compare{display:flex;align-items:stretch;gap:14px;}
+.card[dir=rtl] .compare{flex-direction:row-reverse;}
+.pane{flex:1;background:#fafafa;border:1px solid var(--hair);border-radius:14px;padding:30px 16px 16px;position:relative;display:flex;align-items:center;justify-content:center;min-width:0;}
+.pane img{height:430px;width:auto;aspect-ratio:210/297;max-width:100%;object-fit:cover;background:#fff;border-radius:5px;box-shadow:0 6px 20px rgba(0,0,0,.13);display:block;}
+.pane .docwrap{height:430px;width:304px;max-width:100%;flex:0 0 auto;overflow:hidden;background:#fff;border-radius:5px;box-shadow:0 6px 20px rgba(0,0,0,.13);}
+.pane iframe.doc{width:840px;height:1188px;border:0;transform:scale(.3619);transform-origin:top left;display:block;}
+.pane.before img{filter:saturate(.96);}
+.lab{position:absolute;top:10px;inset-inline-start:12px;font-family:'JetBrains Mono',monospace;font-size:7.5pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:6px;}
+.card[dir=rtl] .lab{font-family:'Cairo',sans-serif;letter-spacing:0;text-transform:none;font-weight:700;}
+.lab.b{background:#efeef0;color:var(--ink2);border:1px solid var(--hair);}
+.lab.a{background:var(--cream);color:#8a6a16;}
+.arrow{flex:0 0 auto;align-self:center;width:42px;height:42px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(28,159,212,.45);}
+.arrow svg{width:22px;height:22px;}
+.card[dir=rtl] .arrow svg{transform:scaleX(-1);}
+.notes{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.notes li{font-size:9pt;font-weight:600;color:var(--ink2);background:var(--blue-soft);border:1px solid var(--blue-line);padding:6px 13px;border-radius:999px;}
+.notes li::before{content:"✓";color:var(--teal);font-weight:800;margin-inline-end:6px;}
+.card[dir=rtl] .notes li{font-family:'Cairo',sans-serif;}
+.foot{text-align:center;color:var(--ink3);font-family:'JetBrains Mono',monospace;font-size:8.5pt;letter-spacing:.1em;margin-top:34px;display:flex;align-items:center;justify-content:center;gap:9px;}
+.foot .loops{width:20px;height:12px;color:var(--orange);}
+@media(max-width:780px){.compare{flex-direction:column!important;}.arrow{transform:rotate(90deg);}.pane img{height:auto;width:100%;max-width:360px;}}
+</style></head>
+<body><div class="wrap">
+  <div class="hero">
+    <svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+    <div class="kick">Wael Design System · Avant / Après</div>
+    <h1>De la capture d'écran<br>au document <span class="ar">جاهز للطباعة</span></h1>
+    <p>Chaque page ci-dessous part d'une photo/scan d'un document scolaire, puis est reconstruite dans le thème maison WaelDocuments — contenu conservé à l'identique, branding propre, et export A4 prêt à imprimer.</p>
+    <div class="stats"><span>4 DOCUMENTS</span><span>FR · LTR + AR · RTL</span><span>COULEUR + MONOCHROME</span><span>MATHS CHTML</span><span>CONTENU VERBATIM</span></div>
+  </div>
+  
+      <article class="card">
+        <div class="chead">
+          <span class="ci">01</span>
+          <div class="ct"><h3>Devoir de Contrôle N°2</h3><p>Similitudes · Nombres complexes</p></div>
+          <div class="ctags"><span class="subj">Mathématiques</span><span class="meta">FR · LTR · Couleur</span></div>
+        </div>
+        <div class="compare">
+          <div class="pane before"><span class="lab b">Avant</span><img src="" alt="Devoir de Contrôle N°2 — avant"></div>
+          <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="pane after"><span class="lab a">Après</span><div class="docwrap"><iframe class="doc" src="docs/devoir_synthese_1.html" title="Devoir de Contrôle N°2 — après" scrolling="yes" loading="lazy"></iframe></div></div>
+        </div>
+        <ul class="notes"><li>Structure xAI + palette couleur</li><li>Branding propre : logo, sceau, filigrane discret</li><li>Maths en MathJax CHTML — poids normal (non gras)</li><li>Contenu verbatim (énoncé exact)</li><li>Mise en page A4 + bannière CTA</li></ul>
+      </article>
+      <article class="card">
+        <div class="chead">
+          <span class="ci">02</span>
+          <div class="ct"><h3>Dipôle RC — Correction</h3><p>Régime permanent · charge du condensateur</p></div>
+          <div class="ctags"><span class="subj">Physique</span><span class="meta">FR · LTR · Couleur + N&B</span></div>
+        </div>
+        <div class="compare">
+          <div class="pane before"><span class="lab b">Avant</span><img src="" alt="Dipôle RC — avant"></div>
+          <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="pane after"><span class="lab a">Après</span><img src="" alt="Dipôle RC — après"></div>
+        </div>
+        <ul class="notes"><li>Finition couleur + variante monochrome</li><li>Schéma de l'oscilloscope redessiné en SVG propre</li><li>Maths CHTML, symboles « < » échappés</li><li>Valeurs exactes : τ = 2 ms, C = 10⁻⁴ F</li><li>Branding + CTA</li></ul>
+      </article>
+      <article class="card" dir="rtl">
+        <div class="chead">
+          <span class="ci">03</span>
+          <div class="ct"><h3>الآنيـة والغيريـة</h3><p>المحور الأول — علاقة الإنسان بذاته وبالغير</p></div>
+          <div class="ctags"><span class="subj">الفلسفة</span><span class="meta">AR · RTL · ملوّن</span></div>
+        </div>
+        <div class="compare">
+          <div class="pane before"><span class="lab b">قبل</span><img src="" alt="الآنية والغيرية — قبل"></div>
+          <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="pane after"><span class="lab a">بعد</span><img src="" alt="الآنية والغيرية — بعد"></div>
+        </div>
+        <ul class="notes"><li>تحويل RTL كامل (Cairo / Tajawal)</li><li>بطاقتا تعريف + معالجة على الثيم</li><li>عودة إلى الثيم الأساسي (لا ستايل طفولي)</li><li>محتوى مطابق للمصدر</li><li>علامة + ترويسة + CTA</li></ul>
+      </article>
+      <article class="card" dir="rtl">
+        <div class="chead">
+          <span class="ci">04</span>
+          <div class="ct"><h3>منهجية الاشتغال على التمارين</h3><p>الأمثلة في علاقة بالمحور الأول</p></div>
+          <div class="ctags"><span class="subj">المنهجي</span><span class="meta">AR · RTL · صفحة واحدة</span></div>
+        </div>
+        <div class="compare">
+          <div class="pane before"><span class="lab b">قبل</span><img src="" alt="منهجية الاشتغال — قبل"></div>
+          <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="pane after"><span class="lab a">بعد</span><img src="" alt="منهجية الاشتغال — بعد"></div>
+        </div>
+        <ul class="notes"><li>ضغط 3 صفحات إلى صفحة واحدة</li><li>أرقام عاديّة (1–6) + وسم «مثال» أنيق</li><li>ملاحظات بالدارجة محفوظة حرفيًّا</li><li>شارة «محتوى حصريّ» + بانر «هل تعلم؟»</li><li>محتوى دون زيادة أو نقصان</li></ul>
+      </article>
+  <div class="foot"><svg class="loops" viewBox="0 0 40 24"><circle cx="13" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="27" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.6"/></svg> WAELDOCUMENTS.COM · CONTENU EXCLUSIF</div>
+</div></body></html>
